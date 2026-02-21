@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Club Live Session</title>
+<title>AI Club Summit Live</title>
 
 <style>
 *{
@@ -16,19 +16,19 @@
 body{
     height:100vh;
     overflow:hidden;
-    background:radial-gradient(circle at top,#103b72 0%,#020817 70%);
+    background:radial-gradient(circle at top,#0f3d72 0%,#020817 75%);
     color:white;
 }
 
-/* soft glow */
+/* soft futuristic glow */
 body::before{
     content:"";
     position:absolute;
     width:700px;
     height:700px;
-    background:#00bfff30;
+    background:#00bfff25;
     filter:blur(150px);
-    top:-250px;
+    top:-220px;
     left:50%;
     transform:translateX(-50%);
     z-index:-1;
@@ -39,7 +39,9 @@ body::before{
     height:100%;
     display:flex;
     flex-direction:column;
-    padding:1.5vh 1.5vw;
+    align-items:center;
+    justify-content:space-between;
+    padding:1.5vh 2vw;
 }
 
 /* HEADER */
@@ -48,96 +50,45 @@ body::before{
     animation:fadeDown 1s ease;
 }
 
-.header h2{
+.header h1{
+    font-size:1.7vw;
     color:#f4c26b;
-    font-size:1.5vw;
 }
 
 .header p{
-    opacity:.85;
     font-size:.9vw;
+    opacity:.85;
 }
 
 .live{
-    display:inline-block;
     margin-top:8px;
-    padding:6px 14px;
-    background:#ff003355;
-    border:1px solid #ff0033;
+    display:inline-block;
+    padding:6px 16px;
     border-radius:20px;
+    background:#ff003340;
+    border:1px solid #ff0033;
     font-size:.8vw;
     animation:pulse 2s infinite;
 }
 
-/* MAIN MEETING AREA */
-.meeting{
-    flex:1;
-    display:grid;
-    grid-template-columns:220px 1fr;
-    gap:16px;
-    margin-top:12px;
-}
-
-/* PARTICIPANTS */
-.participants{
-    background:rgba(255,255,255,.04);
-    border-radius:16px;
-    padding:12px;
-    backdrop-filter:blur(10px);
-    box-shadow:0 0 20px rgba(0,191,255,.2);
-    animation:fadeUp 1.2s ease;
-}
-
-.participants h3{
-    font-size:.95vw;
-    margin-bottom:10px;
-    color:#61dafb;
-}
-
-.user{
-    display:flex;
-    align-items:center;
-    margin-bottom:10px;
-    gap:10px;
-}
-
-.avatar{
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#00bfff,#4facfe);
-    box-shadow:0 0 10px rgba(0,191,255,.6);
-}
-
-.user span{
-    font-size:.8vw;
-}
-
-/* VIDEO AREA */
-.video-area{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-
+/* VIDEO HERO */
 .video-label{
-    margin-bottom:8px;
+    margin-top:8px;
     font-size:.9vw;
     color:#61dafb;
 }
 
 .video-wrap{
-    width:85%;
-    max-width:1050px;
+    width:72%;
+    max-width:1150px;
     aspect-ratio:16/9;
     border-radius:22px;
     overflow:hidden;
     background:rgba(255,255,255,.04);
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(10px);
     box-shadow:
-      0 0 30px rgba(0,191,255,.5),
-      0 0 100px rgba(0,191,255,.15);
+      0 0 25px rgba(0,191,255,.5),
+      0 0 90px rgba(0,191,255,.15);
     animation:zoomIn 1.2s ease;
 }
 
@@ -147,9 +98,45 @@ iframe{
     border:none;
 }
 
+/* PARTICIPANTS (CEO CARDS) */
+.participants{
+    width:90%;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-top:10px;
+    animation:fadeUp 1.3s ease;
+}
+
+.card{
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:10px 14px;
+    min-width:160px;
+    text-align:center;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 20px rgba(0,191,255,.35);
+}
+
+.name{
+    font-size:.85vw;
+    font-weight:600;
+    color:#61dafb;
+}
+
+.role{
+    font-size:.72vw;
+    opacity:.8;
+}
+
 /* FOOTER */
 .footer{
-    text-align:center;
     font-size:.9vw;
     margin-top:8px;
 }
@@ -159,7 +146,7 @@ iframe{
     font-weight:700;
 }
 
-/* QUOTES */
+/* QUOTE TICKER */
 .quote{
     position:absolute;
     bottom:8px;
@@ -183,7 +170,7 @@ iframe{
 }
 
 @keyframes fadeUp{
-    from{opacity:0;transform:translateY(25px);}
+    from{opacity:0;transform:translateY(20px);}
     to{opacity:1;transform:translateY(0);}
 }
 
@@ -194,7 +181,7 @@ iframe{
 
 @keyframes pulse{
     0%{box-shadow:0 0 0 rgba(255,0,51,0);}
-    50%{box-shadow:0 0 15px rgba(255,0,51,.6);}
+    50%{box-shadow:0 0 14px rgba(255,0,51,.6);}
     100%{box-shadow:0 0 0 rgba(255,0,51,0);}
 }
 
@@ -205,16 +192,15 @@ iframe{
 
 /* MOBILE */
 @media(max-width:900px){
-    .meeting{
-        grid-template-columns:1fr;
-    }
-    .participants{
-        display:none;
-    }
-    .header h2{font-size:4vw;}
+    .header h1{font-size:4vw;}
     .header p{font-size:2.5vw;}
     .live{font-size:2.3vw;}
     .video-label{font-size:2.5vw;}
+    .participants{
+        flex-wrap:wrap;
+    }
+    .name{font-size:2.5vw;}
+    .role{font-size:2vw;}
     .footer{font-size:2.5vw;}
     .quote{font-size:2.3vw;}
 }
@@ -226,36 +212,27 @@ iframe{
 <div class="container">
 
 <div class="header">
-    <h2>RGM College of Engineering and Technology (Autonomous)</h2>
+    <h1>RGM College of Engineering and Technology (Autonomous)</h1>
     <p>CSE (Artificial Intelligence & Machine Learning)</p>
-    <div class="live">🔴 LIVE — AI CLUB SESSION</div>
+    <div class="live">🔴 LIVE — AI CLUB SUMMIT SESSION</div>
 </div>
 
-<div class="meeting">
+<div class="video-label">🎤 AI Summit Keynote (Live)</div>
 
-    <!-- PARTICIPANTS -->
-    <div class="participants">
-        <h3>Participants</h3>
+<div class="video-wrap">
+<iframe
+src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0"
+allowfullscreen>
+</iframe>
+</div>
 
-        <div class="user"><div class="avatar"></div><span>AI Research Lead</span></div>
-        <div class="user"><div class="avatar"></div><span>Prompt Engineer</span></div>
-        <div class="user"><div class="avatar"></div><span>ML Engineer</span></div>
-        <div class="user"><div class="avatar"></div><span>Industry Mentor</span></div>
-        <div class="user"><div class="avatar"></div><span>AI Club Host</span></div>
-    </div>
-
-    <!-- VIDEO -->
-    <div class="video-area">
-        <div class="video-label">🎤 Keynote Speaker (Live)</div>
-
-        <div class="video-wrap">
-            <iframe
-            src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0"
-            allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-
+<!-- CEO PARTICIPANTS -->
+<div class="participants">
+    <div class="card"><div class="name">Sundar Pichai</div><div class="role">Google CEO</div></div>
+    <div class="card"><div class="name">Satya Nadella</div><div class="role">Microsoft CEO</div></div>
+    <div class="card"><div class="name">Sam Altman</div><div class="role">OpenAI CEO</div></div>
+    <div class="card"><div class="name">Jensen Huang</div><div class="role">NVIDIA CEO</div></div>
+    <div class="card"><div class="name">Demis Hassabis</div><div class="role">DeepMind CEO</div></div>
 </div>
 
 <div class="footer">
@@ -270,10 +247,9 @@ Organized by <span>AI CLUB RGMCET</span> — Department of CSE-AI&ML
 const quotes=[
 "Artificial intelligence is the new electricity. — Andrew Ng",
 "AI will impact every industry. — Satya Nadella",
-"AI is not replacing humans — it amplifies us.",
-"Bias in, bias out.",
-"The future is written in data.",
-"Use AI to inspire, not to control."
+"The future is not AI vs humans. It’s AI with humans.",
+"Use AI to inspire, not to control.",
+"AI mirrors our minds — flaws and all."
 ];
 
 let i=0;
