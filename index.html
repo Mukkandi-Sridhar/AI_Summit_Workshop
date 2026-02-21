@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Gen AI Workshop | AI CLUB RGMCET</title>
+<title>AI Club Live Session</title>
 
 <style>
 *{
@@ -16,111 +16,129 @@
 body{
     height:100vh;
     overflow:hidden;
-    background:radial-gradient(circle at top,#0d2f5e 0%,#020817 70%);
+    background:radial-gradient(circle at top,#103b72 0%,#020817 70%);
     color:white;
 }
 
-/* BACKGROUND GLOW */
+/* soft glow */
 body::before{
     content:"";
     position:absolute;
-    width:600px;
-    height:600px;
-    background:#00bfff33;
+    width:700px;
+    height:700px;
+    background:#00bfff30;
     filter:blur(150px);
-    top:-200px;
+    top:-250px;
     left:50%;
     transform:translateX(-50%);
     z-index:-1;
 }
 
-/* MAIN LAYOUT */
+/* MAIN */
 .container{
     height:100%;
-    width:100%;
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
-    align-items:center;
-    padding:2vh 2vw;
+    padding:1.5vh 1.5vw;
 }
 
-/* TOP INFO */
-.top{
+/* HEADER */
+.header{
     text-align:center;
     animation:fadeDown 1s ease;
 }
 
-.college{
-    font-size:1.6vw;
-    font-weight:700;
+.header h2{
     color:#f4c26b;
+    font-size:1.5vw;
 }
 
-.sub{
-    font-size:.9vw;
+.header p{
     opacity:.85;
-    margin-top:4px;
-}
-
-.dept{
-    margin-top:8px;
-    color:#61dafb;
-    font-size:1.1vw;
-    font-weight:600;
-}
-
-.date{
-    margin-top:10px;
-    display:inline-block;
-    padding:8px 20px;
-    border:1.5px solid #f4c26b;
-    border-radius:30px;
     font-size:.9vw;
-    color:#f4c26b;
-    backdrop-filter:blur(6px);
 }
 
-/* TITLE */
-.title{
-    text-align:center;
+.live{
+    display:inline-block;
+    margin-top:8px;
+    padding:6px 14px;
+    background:#ff003355;
+    border:1px solid #ff0033;
+    border-radius:20px;
+    font-size:.8vw;
+    animation:pulse 2s infinite;
+}
+
+/* MAIN MEETING AREA */
+.meeting{
+    flex:1;
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:16px;
+    margin-top:12px;
+}
+
+/* PARTICIPANTS */
+.participants{
+    background:rgba(255,255,255,.04);
+    border-radius:16px;
+    padding:12px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 20px rgba(0,191,255,.2);
     animation:fadeUp 1.2s ease;
 }
 
-.title h1{
-    font-size:3.2vw;
-    font-weight:800;
-    letter-spacing:.5px;
+.participants h3{
+    font-size:.95vw;
+    margin-bottom:10px;
+    color:#61dafb;
 }
 
-.title span{
-    color:#00bfff;
+.user{
+    display:flex;
+    align-items:center;
+    margin-bottom:10px;
+    gap:10px;
 }
 
-.title p{
-    font-size:1.3vw;
-    color:#f4c26b;
-    font-style:italic;
+.avatar{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00bfff,#4facfe);
+    box-shadow:0 0 10px rgba(0,191,255,.6);
 }
 
-/* VIDEO HERO */
+.user span{
+    font-size:.8vw;
+}
+
+/* VIDEO AREA */
+.video-area{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.video-label{
+    margin-bottom:8px;
+    font-size:.9vw;
+    color:#61dafb;
+}
+
 .video-wrap{
-    width:70%;
-    max-width:1100px;
+    width:85%;
+    max-width:1050px;
     aspect-ratio:16/9;
-    border-radius:24px;
+    border-radius:22px;
     overflow:hidden;
     background:rgba(255,255,255,.04);
     backdrop-filter:blur(12px);
     box-shadow:
       0 0 30px rgba(0,191,255,.5),
-      0 0 120px rgba(0,191,255,.15);
-    animation:zoomIn 1.3s ease;
-    transition:.4s;
-}
-
-.video-wrap:hover{
-    transform:scale(1.01);
+      0 0 100px rgba(0,191,255,.15);
+    animation:zoomIn 1.2s ease;
 }
 
 iframe{
@@ -131,9 +149,9 @@ iframe{
 
 /* FOOTER */
 .footer{
-    font-size:1vw;
-    opacity:.9;
-    animation:fadeUp 1.4s ease;
+    text-align:center;
+    font-size:.9vw;
+    margin-top:8px;
 }
 
 .footer span{
@@ -141,63 +159,64 @@ iframe{
     font-weight:700;
 }
 
-/* QUOTES AREA */
-.best{
+/* QUOTES */
+.quote{
     position:absolute;
-    bottom:10px;
+    bottom:8px;
     left:50%;
     transform:translateX(-50%);
     width:90%;
     text-align:center;
-    font-size:.85vw;
-    color:#d8eaff;
+    font-size:.8vw;
     opacity:.85;
-    pointer-events:none;
+    color:#d8eaff;
 }
 
-/* quote fade animation */
 .fade{
     animation:fadeQuote 1s ease;
 }
 
-@keyframes fadeQuote{
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
 /* ANIMATIONS */
 @keyframes fadeDown{
-    from{opacity:0;transform:translateY(-30px);}
+    from{opacity:0;transform:translateY(-25px);}
     to{opacity:1;transform:translateY(0);}
 }
 
 @keyframes fadeUp{
-    from{opacity:0;transform:translateY(30px);}
+    from{opacity:0;transform:translateY(25px);}
     to{opacity:1;transform:translateY(0);}
 }
 
 @keyframes zoomIn{
-    from{opacity:0;transform:scale(.92);}
+    from{opacity:0;transform:scale(.95);}
     to{opacity:1;transform:scale(1);}
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 0 rgba(255,0,51,0);}
+    50%{box-shadow:0 0 15px rgba(255,0,51,.6);}
+    100%{box-shadow:0 0 0 rgba(255,0,51,0);}
+}
+
+@keyframes fadeQuote{
+    from{opacity:0;transform:translateY(8px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
 /* MOBILE */
 @media(max-width:900px){
-    .college{font-size:4vw;}
-    .sub{font-size:2.8vw;}
-    .dept{font-size:3vw;}
-    .date{font-size:2.6vw;}
-    .title h1{font-size:7vw;}
-    .title p{font-size:4vw;}
-    .footer{font-size:3vw;}
-    .video-wrap{width:95%;}
-    .best{font-size:2.4vw;width:95%;}
+    .meeting{
+        grid-template-columns:1fr;
+    }
+    .participants{
+        display:none;
+    }
+    .header h2{font-size:4vw;}
+    .header p{font-size:2.5vw;}
+    .live{font-size:2.3vw;}
+    .video-label{font-size:2.5vw;}
+    .footer{font-size:2.5vw;}
+    .quote{font-size:2.3vw;}
 }
 </style>
 </head>
@@ -206,67 +225,69 @@ iframe{
 
 <div class="container">
 
-    <div class="top">
-        <div class="college">RGM College of Engineering and Technology (Autonomous)</div>
-        <div class="sub">NBA, NAAC A+, Nandyal - 518501, Andhra Pradesh</div>
-        <div class="dept">CSE (Artificial Intelligence & Machine Learning)</div>
-        <div class="date">21st February 2026</div>
+<div class="header">
+    <h2>RGM College of Engineering and Technology (Autonomous)</h2>
+    <p>CSE (Artificial Intelligence & Machine Learning)</p>
+    <div class="live">🔴 LIVE — AI CLUB SESSION</div>
+</div>
+
+<div class="meeting">
+
+    <!-- PARTICIPANTS -->
+    <div class="participants">
+        <h3>Participants</h3>
+
+        <div class="user"><div class="avatar"></div><span>AI Research Lead</span></div>
+        <div class="user"><div class="avatar"></div><span>Prompt Engineer</span></div>
+        <div class="user"><div class="avatar"></div><span>ML Engineer</span></div>
+        <div class="user"><div class="avatar"></div><span>Industry Mentor</span></div>
+        <div class="user"><div class="avatar"></div><span>AI Club Host</span></div>
     </div>
 
-    <div class="title">
-        <h1>WORKSHOP ON <span>Gen AI</span> & <span>Prompt Engineering</span></h1>
-        <p>Techniques</p>
-    </div>
+    <!-- VIDEO -->
+    <div class="video-area">
+        <div class="video-label">🎤 Keynote Speaker (Live)</div>
 
-    <div class="video-wrap">
-        <iframe
-        src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0"
-        allowfullscreen>
-        </iframe>
-    </div>
-
-    <div class="footer">
-        Organized by <span>AI CLUB RGMCET</span> — Department of CSE-AI&ML
+        <div class="video-wrap">
+            <iframe
+            src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0"
+            allowfullscreen>
+            </iframe>
+        </div>
     </div>
 
 </div>
 
-<div class="best">
-    <span id="quoteText"></span>
+<div class="footer">
+Organized by <span>AI CLUB RGMCET</span> — Department of CSE-AI&ML
 </div>
+
+</div>
+
+<div class="quote"><span id="quoteText"></span></div>
 
 <script>
-const quotes = [
+const quotes=[
 "Artificial intelligence is the new electricity. — Andrew Ng",
-"AI will impact every job, every industry, every country. — Satya Nadella",
-"AI is here. It’s not the future — it’s now.",
-"Machine learning is pattern recognition at scale.",
-"AI learns what we teach it — on purpose or not.",
-"AI is not a substitute for human intelligence. It amplifies it. — Fei-Fei Li",
+"AI will impact every industry. — Satya Nadella",
+"AI is not replacing humans — it amplifies us.",
 "Bias in, bias out.",
 "The future is written in data.",
-"AI ethics isn’t a side project — it’s the foundation.",
-"We are not just building smarter machines. We are redefining humanity.",
-"The future is not AI vs humans. It’s AI with humans. — Satya Nadella",
-"Use AI to inspire, not to control.",
-"AI mirrors our minds — flaws and all.",
-"Smart doesn’t mean wise.",
-"Technology builds tools. Humans define purpose."
+"Use AI to inspire, not to control."
 ];
 
-let index = 0;
-const quoteEl = document.getElementById("quoteText");
+let i=0;
+const q=document.getElementById("quoteText");
 
-function showQuote(){
-    quoteEl.classList.remove("fade");
-    void quoteEl.offsetWidth; // restart animation
-    quoteEl.innerText = quotes[index];
-    quoteEl.classList.add("fade");
-    index = (index + 1) % quotes.length;
+function changeQuote(){
+    q.classList.remove("fade");
+    void q.offsetWidth;
+    q.innerText=quotes[i];
+    q.classList.add("fade");
+    i=(i+1)%quotes.length;
 }
-
-showQuote();
-setInterval(showQuote, 5000);
+changeQuote();
+setInterval(changeQuote,5000);
 </script>
 
 </body>
