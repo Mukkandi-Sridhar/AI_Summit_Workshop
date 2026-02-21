@@ -2,215 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Summit · Live</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Summit Live</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  height:100vh;
-  overflow:hidden;
-  font-family:Inter,Segoe UI,sans-serif;
-  color:white;
-  background:#0B0E15;
-  position:relative;
+    height:100vh;
+    overflow:hidden;
+    font-family:Segoe UI,Inter,sans-serif;
+    background:#0b0e15;
+    color:white;
 }
 
-/* ambient cinematic background */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 30% 30%,rgba(70,120,220,.18),transparent 55%),
-    radial-gradient(circle at 80% 70%,rgba(40,80,180,.15),transparent 60%),
-    linear-gradient(145deg,#0C101A,#0F1420);
-  animation:drift 20s infinite alternate ease-in-out;
-  z-index:0;
-}
-
-@keyframes drift{
-  from{transform:scale(1);}
-  to{transform:scale(1.03);}
-}
-
-/* MAIN CONTAINER */
+/* ===== MAIN LAYOUT ===== */
 .container{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  padding:1.5rem 2.2rem;
-  max-width:1600px;
-  margin:auto;
-  position:relative;
-  z-index:2;
+    height:100vh;
+    display:grid;
+    grid-template-rows:auto auto 1fr auto auto;
+    gap:10px;
+    padding:16px 28px;
+    max-width:1600px;
+    margin:auto;
 }
 
 /* HEADER */
 .header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  padding-bottom:.6rem;
-  border-bottom:1px solid rgba(255,255,255,.05);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
 }
 
-.event-name{
-  font-size:2rem;
-  font-weight:600;
-  letter-spacing:-.02em;
+.title{
+    font-size:34px;
+    font-weight:700;
 }
-
-.event-name span{
-  font-weight:300;
-  color:#9bb0d9;
+.title span{
+    font-weight:300;
+    color:#9bb0d9;
 }
 
 .host{
-  font-size:.85rem;
-  color:rgba(180,200,245,.75);
-  margin-top:.2rem;
+    font-size:14px;
+    opacity:.75;
 }
 
-.live-badge{
-  background:#bf3a2f;
-  padding:.35rem 1rem;
-  border-radius:30px;
-  font-size:.75rem;
-  letter-spacing:.08em;
-  font-weight:600;
-  display:flex;
-  align-items:center;
-  gap:.5rem;
+.live{
+    background:#bf3a2f;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
 }
 
-.live-dot{
-  width:8px;
-  height:8px;
-  background:white;
-  border-radius:50%;
-  animation:pulse 1.6s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.3);opacity:.6;}
-}
-
-/* VIDEO LABEL */
-.video-context{
-  display:flex;
-  justify-content:space-between;
-  margin:.6rem 0 .4rem;
-}
-
+/* LABEL */
 .video-label{
-  font-size:.78rem;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  color:#8CA3C9;
-  border-left:2px solid #4770B0;
-  padding-left:.7rem;
+    font-size:12px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:#8ca3c9;
+    border-left:2px solid #4770b0;
+    padding-left:8px;
 }
 
-.video-timestamp{
-  font-size:.75rem;
-  color:rgba(170,190,230,.7);
+/* ===== VIDEO AREA ===== */
+.video-area{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:0;
 }
 
-/* VIDEO HERO */
-.video-hero{
-  flex:1;
-  min-height:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-/* STRICT 16:9 FRAME */
+/* PERFECT 16:9 FIT */
 .video-frame{
-  width:min(94vw,1400px);
-  aspect-ratio:16/9;
-  position:relative;
-  border-radius:20px;
-  overflow:hidden;
-  background:#000;
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.55),
-    0 0 0 1px rgba(255,255,255,.05),
-    0 0 35px rgba(80,150,255,.2);
+    width:min(94vw,1400px);
+    aspect-ratio:16/9;
+    background:black;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:
+      0 25px 50px rgba(0,0,0,.55),
+      0 0 0 1px rgba(255,255,255,.05);
 }
 
-/* iframe fills perfectly */
 .video-frame iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:none;
+    width:100%;
+    height:100%;
+    border:none;
 }
 
 /* PARTICIPANTS */
 .attendees{
-  display:flex;
-  justify-content:center;
-  gap:2.2rem;
-  margin:.9rem 0 .3rem;
-  flex-wrap:wrap;
+    display:flex;
+    justify-content:center;
+    gap:40px;
 }
 
 .attendee{
-  text-align:center;
-  width:80px;
-}
-
-.avatar{
-  width:46px;
-  height:46px;
-  margin:auto auto .45rem;
-  border-radius:50%;
-  background:rgba(25,35,55,.7);
-  border:1px solid rgba(255,255,255,.15);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.1rem;
-}
-
-.name{
-  font-size:.9rem;
-  font-weight:500;
+    text-align:center;
+    font-size:13px;
 }
 
 .role{
-  font-size:.65rem;
-  color:#9fb8e6;
-  text-transform:uppercase;
+    font-size:11px;
+    color:#9fb8e6;
+    text-transform:uppercase;
 }
 
 /* FOOTER */
 .footer{
-  text-align:center;
-  font-size:.8rem;
-  color:rgba(180,200,240,.7);
-  border-top:1px solid rgba(255,255,255,.04);
-  padding-top:.5rem;
+    text-align:center;
+    font-size:13px;
+    opacity:.75;
 }
 
-.footer strong{
-  color:#adc4ff;
-}
+.footer strong{color:#adc4ff;}
 
-/* RESPONSIVE */
 @media(max-width:900px){
-  .event-name{font-size:1.5rem;}
-  .video-frame{width:95vw;}
-  .attendees{gap:1.3rem;}
+    .title{font-size:24px;}
+    .attendees{gap:18px;flex-wrap:wrap;}
 }
 </style>
 </head>
@@ -219,46 +130,36 @@ body::before{
 
 <div class="container">
 
-  <div class="header">
-    <div>
-      <div class="event-name">AI SUMMIT <span>· live</span></div>
-      <div class="host">RGM College of Engineering and Technology · CSE (AI&ML)</div>
-    </div>
-
-    <div class="live-badge">
-      <div class="live-dot"></div>
-      NOW STREAMING
-    </div>
+<div class="header">
+  <div>
+    <div class="title">AI SUMMIT <span>· live</span></div>
+    <div class="host">RGM College of Engineering and Technology · CSE (AI&ML)</div>
   </div>
+  <div class="live">NOW STREAMING</div>
+</div>
 
-  <div class="video-context">
-    <div class="video-label">KEYNOTE ADDRESS</div>
-    <div class="video-timestamp">global executive summit</div>
-  </div>
+<div class="video-label">KEYNOTE ADDRESS</div>
 
-  <!-- VIDEO -->
-  <div class="video-hero">
-    <div class="video-frame">
-      <iframe
-        src="https://www.youtube.com/embed/cmeh2t_TeuA?rel=0&modestbranding=1"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
+<div class="video-area">
+  <div class="video-frame">
+    <iframe
+      src="https://www.youtube.com/embed/cmeh2t_TeuA?rel=0&modestbranding=1"
+      allowfullscreen>
+    </iframe>
   </div>
+</div>
 
-  <!-- PARTICIPANTS -->
-  <div class="attendees">
-    <div class="attendee"><div class="avatar">S</div><div class="name">Sundar Pichai</div><div class="role">Google CEO</div></div>
-    <div class="attendee"><div class="avatar">S</div><div class="name">Satya Nadella</div><div class="role">Microsoft CEO</div></div>
-    <div class="attendee"><div class="avatar">S</div><div class="name">Sam Altman</div><div class="role">OpenAI CEO</div></div>
-    <div class="attendee"><div class="avatar">J</div><div class="name">Jensen Huang</div><div class="role">NVIDIA CEO</div></div>
-    <div class="attendee"><div class="avatar">D</div><div class="name">Demis Hassabis</div><div class="role">DeepMind CEO</div></div>
-  </div>
+<div class="attendees">
+  <div class="attendee">Sundar Pichai<div class="role">Google CEO</div></div>
+  <div class="attendee">Satya Nadella<div class="role">Microsoft CEO</div></div>
+  <div class="attendee">Sam Altman<div class="role">OpenAI CEO</div></div>
+  <div class="attendee">Jensen Huang<div class="role">NVIDIA CEO</div></div>
+  <div class="attendee">Demis Hassabis<div class="role">DeepMind CEO</div></div>
+</div>
 
-  <div class="footer">
-    Organized by <strong>AI CLUB RGMCET</strong> — Department of CSE-AI&ML
-  </div>
+<div class="footer">
+Organized by <strong>AI CLUB RGMCET</strong> — Department of CSE-AI&ML
+</div>
 
 </div>
 
