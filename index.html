@@ -10,28 +10,14 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+    font-family:Segoe UI,sans-serif;
 }
 
 body{
     height:100vh;
-    overflow:hidden;
-    background:radial-gradient(circle at top,#0f3d72 0%,#020817 75%);
+    background:linear-gradient(180deg,#0d3a6b 0%,#020817 70%);
     color:white;
-}
-
-/* soft futuristic glow */
-body::before{
-    content:"";
-    position:absolute;
-    width:700px;
-    height:700px;
-    background:#00bfff25;
-    filter:blur(150px);
-    top:-220px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:-1;
+    overflow:hidden;
 }
 
 /* MAIN */
@@ -40,56 +26,49 @@ body::before{
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:space-between;
-    padding:1.5vh 2vw;
+    padding:18px 30px;
 }
 
 /* HEADER */
 .header{
     text-align:center;
-    animation:fadeDown 1s ease;
+    margin-bottom:10px;
 }
 
 .header h1{
-    font-size:1.7vw;
+    font-size:32px;
     color:#f4c26b;
+    font-weight:700;
 }
 
 .header p{
-    font-size:.9vw;
+    font-size:15px;
     opacity:.85;
 }
 
 .live{
     margin-top:8px;
-    display:inline-block;
-    padding:6px 16px;
-    border-radius:20px;
-    background:#ff003340;
-    border:1px solid #ff0033;
-    font-size:.8vw;
-    animation:pulse 2s infinite;
+    font-size:13px;
+    color:#ff5a6b;
+    font-weight:600;
 }
 
-/* VIDEO HERO */
+/* VIDEO */
 .video-label{
-    margin-top:8px;
-    font-size:.9vw;
-    color:#61dafb;
+    margin:10px 0 8px;
+    color:#66d9ff;
+    font-size:14px;
 }
 
 .video-wrap{
-    width:72%;
-    max-width:1150px;
+    width:min(1200px,85vw);
     aspect-ratio:16/9;
-    border-radius:22px;
+    border-radius:20px;
     overflow:hidden;
-    background:rgba(255,255,255,.04);
-    backdrop-filter:blur(10px);
+    background:#000;
     box-shadow:
-      0 0 25px rgba(0,191,255,.5),
-      0 0 90px rgba(0,191,255,.15);
-    animation:zoomIn 1.2s ease;
+      0 10px 40px rgba(0,0,0,.5),
+      0 0 40px rgba(0,191,255,.25);
 }
 
 iframe{
@@ -98,47 +77,36 @@ iframe{
     border:none;
 }
 
-/* PARTICIPANTS (CEO CARDS) */
+/* PARTICIPANTS STRIP */
 .participants{
-    width:90%;
+    margin-top:14px;
     display:flex;
+    gap:28px;
     justify-content:center;
-    gap:14px;
-    margin-top:10px;
-    animation:fadeUp 1.3s ease;
+    flex-wrap:wrap;
 }
 
-.card{
-    background:rgba(255,255,255,.05);
-    backdrop-filter:blur(10px);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:14px;
-    padding:10px 14px;
-    min-width:160px;
+.person{
     text-align:center;
-    transition:.3s;
+    min-width:130px;
 }
 
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 0 20px rgba(0,191,255,.35);
-}
-
-.name{
-    font-size:.85vw;
+.person .name{
+    font-size:14px;
+    color:#66d9ff;
     font-weight:600;
-    color:#61dafb;
 }
 
-.role{
-    font-size:.72vw;
-    opacity:.8;
+.person .role{
+    font-size:12px;
+    opacity:.75;
 }
 
 /* FOOTER */
 .footer{
-    font-size:.9vw;
-    margin-top:8px;
+    margin-top:auto;
+    font-size:14px;
+    opacity:.9;
 }
 
 .footer span{
@@ -146,63 +114,22 @@ iframe{
     font-weight:700;
 }
 
-/* QUOTE TICKER */
-.quote{
-    position:absolute;
-    bottom:8px;
-    left:50%;
-    transform:translateX(-50%);
-    width:90%;
-    text-align:center;
-    font-size:.8vw;
-    opacity:.85;
-    color:#d8eaff;
+/* subtle entrance */
+.container{
+    animation:fade 1s ease;
 }
 
-.fade{
-    animation:fadeQuote 1s ease;
-}
-
-/* ANIMATIONS */
-@keyframes fadeDown{
-    from{opacity:0;transform:translateY(-25px);}
-    to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(20px);}
-    to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes zoomIn{
-    from{opacity:0;transform:scale(.95);}
-    to{opacity:1;transform:scale(1);}
-}
-
-@keyframes pulse{
-    0%{box-shadow:0 0 0 rgba(255,0,51,0);}
-    50%{box-shadow:0 0 14px rgba(255,0,51,.6);}
-    100%{box-shadow:0 0 0 rgba(255,0,51,0);}
-}
-
-@keyframes fadeQuote{
+@keyframes fade{
     from{opacity:0;transform:translateY(8px);}
     to{opacity:1;transform:translateY(0);}
 }
 
 /* MOBILE */
 @media(max-width:900px){
-    .header h1{font-size:4vw;}
-    .header p{font-size:2.5vw;}
-    .live{font-size:2.3vw;}
-    .video-label{font-size:2.5vw;}
-    .participants{
-        flex-wrap:wrap;
-    }
-    .name{font-size:2.5vw;}
-    .role{font-size:2vw;}
-    .footer{font-size:2.5vw;}
-    .quote{font-size:2.3vw;}
+    .header h1{font-size:24px;}
+    .header p{font-size:13px;}
+    .video-wrap{width:95vw;}
+    .participants{gap:14px;}
 }
 </style>
 </head>
@@ -217,7 +144,7 @@ iframe{
     <div class="live">🔴 LIVE — AI CLUB SUMMIT SESSION</div>
 </div>
 
-<div class="video-label">🎤 AI Summit Keynote (Live)</div>
+<div class="video-label">AI Summit Keynote (Live)</div>
 
 <div class="video-wrap">
 <iframe
@@ -226,13 +153,13 @@ allowfullscreen>
 </iframe>
 </div>
 
-<!-- CEO PARTICIPANTS -->
+<!-- PARTICIPANTS -->
 <div class="participants">
-    <div class="card"><div class="name">Sundar Pichai</div><div class="role">Google CEO</div></div>
-    <div class="card"><div class="name">Satya Nadella</div><div class="role">Microsoft CEO</div></div>
-    <div class="card"><div class="name">Sam Altman</div><div class="role">OpenAI CEO</div></div>
-    <div class="card"><div class="name">Jensen Huang</div><div class="role">NVIDIA CEO</div></div>
-    <div class="card"><div class="name">Demis Hassabis</div><div class="role">DeepMind CEO</div></div>
+    <div class="person"><div class="name">Sundar Pichai</div><div class="role">Google CEO</div></div>
+    <div class="person"><div class="name">Satya Nadella</div><div class="role">Microsoft CEO</div></div>
+    <div class="person"><div class="name">Sam Altman</div><div class="role">OpenAI CEO</div></div>
+    <div class="person"><div class="name">Jensen Huang</div><div class="role">NVIDIA CEO</div></div>
+    <div class="person"><div class="name">Demis Hassabis</div><div class="role">DeepMind CEO</div></div>
 </div>
 
 <div class="footer">
@@ -240,31 +167,6 @@ Organized by <span>AI CLUB RGMCET</span> — Department of CSE-AI&ML
 </div>
 
 </div>
-
-<div class="quote"><span id="quoteText"></span></div>
-
-<script>
-const quotes=[
-"Artificial intelligence is the new electricity. — Andrew Ng",
-"AI will impact every industry. — Satya Nadella",
-"The future is not AI vs humans. It’s AI with humans.",
-"Use AI to inspire, not to control.",
-"AI mirrors our minds — flaws and all."
-];
-
-let i=0;
-const q=document.getElementById("quoteText");
-
-function changeQuote(){
-    q.classList.remove("fade");
-    void q.offsetWidth;
-    q.innerText=quotes[i];
-    q.classList.add("fade");
-    i=(i+1)%quotes.length;
-}
-changeQuote();
-setInterval(changeQuote,5000);
-</script>
 
 </body>
 </html>
