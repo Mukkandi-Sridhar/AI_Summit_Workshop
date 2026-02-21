@@ -1,346 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Summit · Livestream</title>
-  <style>
-    /* ----- reset & base ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gen AI Workshop | AI CLUB RGMCET</title>
 
-    body {
-      height: 100vh;
-      background: #0B0E14;  /* deep, calm dark background */
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      color: #FFFFFF;
-      line-height: 1.4;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow: hidden;           /* prevent browser level scroll — we control inside container */
-    }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-    /* main container uses full viewport height, flex column, refined spacing */
-    .container {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 2rem 2.5rem 1.8rem 2.5rem;
-      max-width: 1600px;
-      margin: 0 auto;
-      animation: appear 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
+body{
+    height:100vh;
+    overflow:hidden;
+    background:radial-gradient(circle at top,#0d2f5e 0%,#020817 70%);
+    color:white;
+}
 
-    @keyframes appear {
-      0% { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+/* BACKGROUND GLOW */
+body::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:#00bfff33;
+    filter:blur(150px);
+    top:-200px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:-1;
+}
 
-    /* ----- header (minimal, high hierarchy) ----- */
-    .header {
-      flex-shrink: 0;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding-bottom: 0.9rem;
-    }
+/* MAIN LAYOUT */
+.container{
+    height:100%;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    padding:2vh 2vw;
+}
 
-    .title-section {
-      display: flex;
-      flex-direction: column;
-    }
+/* TOP INFO */
+.top{
+    text-align:center;
+    animation:fadeDown 1s ease;
+}
 
-    .event-name {
-      font-size: 1.9rem;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-      line-height: 1.2;
-    }
+.college{
+    font-size:1.6vw;
+    font-weight:700;
+    color:#f4c26b;
+}
 
-    .event-name span {
-      font-weight: 340;
-      color: #A0B3D9;            /* muted light blue for subtle contrast */
-    }
+.sub{
+    font-size:.9vw;
+    opacity:.85;
+    margin-top:4px;
+}
 
-    .host {
-      font-size: 0.9rem;
-      font-weight: 380;
-      color: rgba(200, 215, 255, 0.7);
-      margin-top: 0.2rem;
-      letter-spacing: 0.01em;
-    }
+.dept{
+    margin-top:8px;
+    color:#61dafb;
+    font-size:1.1vw;
+    font-weight:600;
+}
 
-    .live-badge {
-      background: #D43F31;        /* refined red, not neon */
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 540;
-      text-transform: uppercase;
-      padding: 0.3rem 0.9rem;
-      border-radius: 40px;
-      letter-spacing: 0.08em;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
+.date{
+    margin-top:10px;
+    display:inline-block;
+    padding:8px 20px;
+    border:1.5px solid #f4c26b;
+    border-radius:30px;
+    font-size:.9vw;
+    color:#f4c26b;
+    backdrop-filter:blur(6px);
+}
 
-    .live-badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: #FFFFFF;
-      border-radius: 50%;
-      display: inline-block;
-      animation: pulse 1.8s infinite;
-    }
+/* TITLE */
+.title{
+    text-align:center;
+    animation:fadeUp 1.2s ease;
+}
 
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.1); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+.title h1{
+    font-size:3.2vw;
+    font-weight:800;
+    letter-spacing:.5px;
+}
 
-    /* ----- video hero (main focus, clean, no extra labels) ----- */
-    .video-hero {
-      flex: 1 1 auto;
-      min-height: 0;               /* essential for flex shrink */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0.6rem 0 0.2rem 0;
-    }
+.title span{
+    color:#00bfff;
+}
 
-    .video-frame {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.title p{
+    font-size:1.3vw;
+    color:#f4c26b;
+    font-style:italic;
+}
 
-    .video-frame iframe {
-      width: 100%;
-      height: 100%;
-      max-width: min(1320px, 90vw);
-      max-height: 70vh;            /* keeps video contained on any screen */
-      aspect-ratio: 16 / 9;
-      border-radius: 24px;
-      border: none;
-      background: #0A0C12;
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.02) inset;
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-    }
+/* VIDEO HERO */
+.video-wrap{
+    width:70%;
+    max-width:1100px;
+    aspect-ratio:16/9;
+    border-radius:24px;
+    overflow:hidden;
+    background:rgba(255,255,255,.04);
+    backdrop-filter:blur(12px);
+    box-shadow:
+      0 0 30px rgba(0,191,255,.5),
+      0 0 120px rgba(0,191,255,.15);
+    animation:zoomIn 1.3s ease;
+    transition:.4s;
+}
 
-    .video-frame iframe:hover {
-      transform: scale(1.005);
-      box-shadow: 0 28px 50px -12px #000000DD, 0 0 0 1px rgba(255,255,255,0.05) inset;
-    }
+.video-wrap:hover{
+    transform:scale(1.01);
+}
 
-    /* ----- participants (elegant, attendee list, no cards) ----- */
-    .attendees {
-      flex-shrink: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2.8rem 3.2rem;
-      margin: 1.5rem 0 0.5rem 0;
-      padding: 0 0.5rem;
-    }
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
 
-    .attendee {
-      text-align: center;
-      transition: opacity 0.2s;
-    }
+/* FOOTER */
+.footer{
+    font-size:1vw;
+    opacity:.9;
+    animation:fadeUp 1.4s ease;
+}
 
-    .attendee .name {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.95);
-      letter-spacing: -0.01em;
-      margin-bottom: 0.2rem;
-      transition: color 0.2s;
-    }
+.footer span{
+    color:#00bfff;
+    font-weight:700;
+}
 
-    .attendee .role {
-      font-size: 0.8rem;
-      font-weight: 360;
-      color: rgba(170, 190, 230, 0.8);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      border-bottom: 1px dotted rgba(255,255,255,0.1);
-      padding-bottom: 0.2rem;
-    }
+/* BEST VIEW */
+.best{
+    position:absolute;
+    bottom:10px;
+    right:20px;
+    font-size:.75vw;
+    opacity:.6;
+}
 
-    /* subtle hover – only name gains a gentle accent */
-    .attendee:hover .name {
-      color: #7BB2FF;      /* soft, modern blue */
-    }
+/* ANIMATIONS */
+@keyframes fadeDown{
+    from{opacity:0;transform:translateY(-30px);}
+    to{opacity:1;transform:translateY(0);}
+}
 
-    /* ----- footer (clean, minimal) ----- */
-    .footer {
-      flex-shrink: 0;
-      text-align: center;
-      font-size: 0.85rem;
-      font-weight: 350;
-      color: rgba(200, 215, 255, 0.6);
-      padding-top: 1rem;
-      margin-top: 0.3rem;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      letter-spacing: 0.02em;
-    }
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
+}
 
-    .footer strong {
-      font-weight: 520;
-      color: #B0CBFF;
-    }
+@keyframes zoomIn{
+    from{opacity:0;transform:scale(.92);}
+    to{opacity:1;transform:scale(1);}
+}
 
-    /* ----- mobile / small height adjustments ----- */
-    @media (max-width: 800px) {
-      .container {
-        padding: 1.5rem 1.2rem 1rem 1.2rem;
-      }
-      .event-name {
-        font-size: 1.5rem;
-      }
-      .header {
-        flex-direction: column;
-        gap: 0.6rem;
-        align-items: flex-start;
-      }
-      .attendees {
-        gap: 1.5rem;
-      }
-      .attendee .name {
-        font-size: 0.95rem;
-      }
-      .attendee .role {
-        font-size: 0.7rem;
-      }
-    }
-
-    /* small height screens (like notebook with browser bars) */
-    @media (max-height: 700px) {
-      .video-frame iframe {
-        max-height: 58vh;
-      }
-      .attendees {
-        margin: 0.5rem 0 0 0;
-        gap: 2rem;
-      }
-      .footer {
-        padding-top: 0.5rem;
-      }
-    }
-
-    /* perfect full-screen fit: no scroll, everything intentional */
-    @media (max-height: 620px) {
-      .attendees {
-        gap: 1.5rem;
-      }
-      .attendee .name {
-        font-size: 0.9rem;
-      }
-      .event-name {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* optional micro-interaction for live badge (already has pulse) */
-    /* ensure no overflow / unwanted scroll */
-    body {
-      overflow: hidden;
-    }
-
-    /* fine tune horizontal overflow */
-    .container {
-      overflow-x: hidden;
-    }
-
-    /* ---- additional subtle detail: tiny gradient line on header ---- */
-    .header {
-      position: relative;
-    }
-    .header::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 80px;
-      height: 2px;
-      background: linear-gradient(90deg, #5F9EFF, transparent);
-      border-radius: 2px;
-    }
-  </style>
+/* MOBILE */
+@media(max-width:900px){
+    .college{font-size:4vw;}
+    .sub{font-size:2.8vw;}
+    .dept{font-size:3vw;}
+    .date{font-size:2.6vw;}
+    .title h1{font-size:7vw;}
+    .title p{font-size:4vw;}
+    .footer{font-size:3vw;}
+    .video-wrap{width:95%;}
+    .best{font-size:2.5vw;}
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <!-- header: clean, with live emblem & host info -->
-  <div class="header">
-    <div class="title-section">
-      <div class="event-name">
-        AI SUMMIT <span>· live</span>
-      </div>
-      <div class="host">
-        RGM College of Engineering and Technology · CSE (AI&ML)
-      </div>
+    <div class="top">
+        <div class="college">RGM College of Engineering and Technology (Autonomous)</div>
+        <div class="sub">NBA, NAAC A+, Nandyal - 518501, Andhra Pradesh</div>
+        <div class="dept">CSE (Artificial Intelligence & Machine Learning)</div>
+        <div class="date">21st February 2026</div>
     </div>
-    <div class="live-badge" aria-label="live streaming now">LIVE</div>
-  </div>
 
-  <!-- video hero – main focal point, keynote session -->
-  <div class="video-hero">
-    <div class="video-frame">
-      <iframe 
-        src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0&showinfo=0&modestbranding=1" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen
-        title="AI Summit Keynote">
-      </iframe>
+    <div class="title">
+        <h1>WORKSHOP ON <span>Gen AI</span> & <span>Prompt Engineering</span></h1>
+        <p>Techniques</p>
     </div>
-  </div>
 
-  <!-- participants as elegant attendee list, not cards -->
-  <div class="attendees">
-    <div class="attendee">
-      <div class="name">Sundar Pichai</div>
-      <div class="role">Google CEO</div>
+    <div class="video-wrap">
+        <iframe
+        src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0"
+        allowfullscreen>
+        </iframe>
     </div>
-    <div class="attendee">
-      <div class="name">Satya Nadella</div>
-      <div class="role">Microsoft CEO</div>
-    </div>
-    <div class="attendee">
-      <div class="name">Sam Altman</div>
-      <div class="role">OpenAI CEO</div>
-    </div>
-    <div class="attendee">
-      <div class="name">Jensen Huang</div>
-      <div class="role">NVIDIA CEO</div>
-    </div>
-    <div class="attendee">
-      <div class="name">Demis Hassabis</div>
-      <div class="role">DeepMind CEO</div>
-    </div>
-  </div>
 
-  <!-- footer: subtle, institutional -->
-  <div class="footer">
-    Organized by <strong>AI CLUB RGMCET</strong> — Department of CSE-AI&ML
-  </div>
+    <div class="footer">
+        Organized by <span>AI CLUB RGMCET</span> — Department of CSE-AI&ML
+    </div>
 
 </div>
 
-<!-- no extra javascript needed — pure, refined presentation -->
+<div class="best">AI is the new electricity. — Andrew Ng</div>
+
 </body>
 </html>
