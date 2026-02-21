@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Summit · Livestream</title>
+  <title>AI Summit · executive livestream</title>
   <style>
-    /* ----- reset & base ----- */
+    /* ----- reset & premium base ----- */
     * {
       margin: 0;
       padding: 0;
@@ -14,16 +14,16 @@
 
     body {
       height: 100vh;
-      background: #0B0E14;  /* deep, calm dark background */
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #0B0E15;  /* deep neutral base */
+      font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       color: #FFFFFF;
       line-height: 1.4;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow: hidden;           /* prevent browser level scroll — we control inside container */
+      overflow: hidden;           /* no browser scroll – we manage inner layout */
     }
 
-    /* main container uses full viewport height, flex column, refined spacing */
+    /* main container: full viewport, flex column, refined max-width */
     .container {
       height: 100vh;
       display: flex;
@@ -32,6 +32,8 @@
       max-width: 1600px;
       margin: 0 auto;
       animation: appear 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+      position: relative;
+      z-index: 2;
     }
 
     @keyframes appear {
@@ -39,16 +41,44 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ----- header (minimal, high hierarchy) ----- */
+    /* background sophistication: subtle gradient + noise effect */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(ellipse at 30% 40%, rgba(30, 60, 100, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 70%, rgba(20, 40, 80, 0.12) 0%, transparent 70%),
+                  linear-gradient(145deg, #0C101A 0%, #0F1420 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* soft noise overlay (barely there) */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wMTUiIC8+PC9zdmc+');
+      background-repeat: repeat;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 3;
+    }
+
+    /* ----- header (minimal, refined) ----- */
     .header {
       flex-shrink: 0;
       margin-bottom: 1.2rem;
       display: flex;
       align-items: baseline;
-      flex-wrap: wrap;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding-bottom: 0.9rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
     .title-section {
@@ -57,66 +87,94 @@
     }
 
     .event-name {
-      font-size: 1.9rem;
-      font-weight: 500;
+      font-size: 2rem;
+      font-weight: 520;
       letter-spacing: -0.02em;
       color: #FFFFFF;
       line-height: 1.2;
     }
 
-    .event-name span {
-      font-weight: 340;
-      color: #A0B3D9;            /* muted light blue for subtle contrast */
+    .event-name .thin {
+      font-weight: 300;
+      color: #9BB0D9;
+      margin-left: 0.15rem;
     }
 
     .host {
-      font-size: 0.9rem;
-      font-weight: 380;
-      color: rgba(200, 215, 255, 0.7);
+      font-size: 0.85rem;
+      font-weight: 360;
+      color: rgba(180, 200, 245, 0.7);
       margin-top: 0.2rem;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
     }
 
+    /* live badge — premium pill with soft pulse */
     .live-badge {
-      background: #D43F31;        /* refined red, not neon */
+      background: #BF3A2F;        /* rich, muted red */
       color: white;
       font-size: 0.75rem;
-      font-weight: 540;
+      font-weight: 550;
       text-transform: uppercase;
-      padding: 0.3rem 0.9rem;
+      padding: 0.35rem 1rem 0.35rem 1rem;
       border-radius: 40px;
-      letter-spacing: 0.08em;
-      display: inline-flex;
+      letter-spacing: 0.1em;
+      display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 0.5rem;
       border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      backdrop-filter: blur(2px);
+      transition: box-shadow 0.2s;
     }
 
-    .live-badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: #FFFFFF;
+    .live-badge .dot {
+      width: 9px;
+      height: 9px;
+      background: #ffffff;
       border-radius: 50%;
-      display: inline-block;
+      box-shadow: 0 0 8px rgba(255,100,100,0.8);
       animation: pulse 1.8s infinite;
     }
 
     @keyframes pulse {
       0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
       100% { opacity: 1; transform: scale(1); }
     }
 
-    /* ----- video hero (main focus, clean, no extra labels) ----- */
+    /* keynote label above video */
+    .video-context {
+      flex-shrink: 0;
+      margin-bottom: 0.35rem;
+      margin-top: 0.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .video-label {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #8CA3C9;
+      border-left: 2px solid #4770B0;
+      padding-left: 0.8rem;
+      line-height: 1;
+    }
+    .video-timestamp {
+      font-size: 0.75rem;
+      font-weight: 350;
+      color: rgba(160,180,220,0.7);
+    }
+
+    /* ----- video hero (main focus, elegant framing) ----- */
     .video-hero {
       flex: 1 1 auto;
-      min-height: 0;               /* essential for flex shrink */
+      min-height: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0.6rem 0 0.2rem 0;
+      margin: 0.3rem 0 0.2rem 0;
     }
 
     .video-frame {
@@ -130,39 +188,71 @@
     .video-frame iframe {
       width: 100%;
       height: 100%;
-      max-width: min(1320px, 90vw);
-      max-height: 70vh;            /* keeps video contained on any screen */
+      max-width: min(1360px, 92vw);
+      max-height: 68vh;            /* comfortable on all screens */
       aspect-ratio: 16 / 9;
       border-radius: 24px;
       border: none;
       background: #0A0C12;
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.02) inset;
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      box-shadow: 0 30px 50px -20px #000000, 0 0 0 1px rgba(255,255,255,0.03) inset, 0 0 0 1px rgba(70,130,200,0.2);
+      transition: transform 0.25s ease, box-shadow 0.4s ease;
     }
 
     .video-frame iframe:hover {
-      transform: scale(1.005);
-      box-shadow: 0 28px 50px -12px #000000DD, 0 0 0 1px rgba(255,255,255,0.05) inset;
+      transform: scale(1.004);
+      box-shadow: 0 34px 60px -20px #000000, 0 0 0 1px rgba(255,255,255,0.06) inset, 0 0 0 1px rgba(90,160,255,0.25);
     }
 
-    /* ----- participants (elegant, attendee list, no cards) ----- */
+    /* ----- attendees — now with elegant avatar circles ----- */
     .attendees {
       flex-shrink: 0;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 2.8rem 3.2rem;
-      margin: 1.5rem 0 0.5rem 0;
-      padding: 0 0.5rem;
+      gap: 2.5rem 3rem;
+      margin: 1.4rem 0 0.4rem 0;
+      padding: 0.2rem 0;
     }
 
     .attendee {
       text-align: center;
+      width: 90px;                /* consistent width */
       transition: opacity 0.2s;
     }
 
+    .avatar {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 0.7rem auto;
+      background: rgba(25, 35, 55, 0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #fff;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 18px -6px rgba(0,0,0,0.6);
+    }
+
+    /* each avatar gets a subtle gradient / initial */
+    .attendee .avatar span {
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .attendee:hover .avatar {
+      border-color: rgba(130, 180, 255, 0.5);
+      background: rgba(35, 50, 80, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 22px -10px #000000dd;
+    }
+
     .attendee .name {
-      font-size: 1.1rem;
+      font-size: 1.0rem;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.95);
       letter-spacing: -0.01em;
@@ -171,101 +261,96 @@
     }
 
     .attendee .role {
-      font-size: 0.8rem;
-      font-weight: 360;
-      color: rgba(170, 190, 230, 0.8);
-      letter-spacing: 0.02em;
+      font-size: 0.7rem;
+      font-weight: 340;
+      color: rgba(160, 185, 230, 0.9);
+      letter-spacing: 0.03em;
       text-transform: uppercase;
       border-bottom: 1px dotted rgba(255,255,255,0.1);
       padding-bottom: 0.2rem;
     }
 
-    /* subtle hover – only name gains a gentle accent */
-    .attendee:hover .name {
-      color: #7BB2FF;      /* soft, modern blue */
-    }
-
-    /* ----- footer (clean, minimal) ----- */
+    /* ----- footer (ultra clean) ----- */
     .footer {
       flex-shrink: 0;
       text-align: center;
-      font-size: 0.85rem;
-      font-weight: 350;
-      color: rgba(200, 215, 255, 0.6);
-      padding-top: 1rem;
-      margin-top: 0.3rem;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      letter-spacing: 0.02em;
+      font-size: 0.8rem;
+      font-weight: 330;
+      color: rgba(180, 200, 240, 0.6);
+      padding-top: 0.8rem;
+      margin-top: 0.2rem;
+      border-top: 1px solid rgba(255,255,255,0.03);
+      letter-spacing: 0.03em;
     }
 
     .footer strong {
-      font-weight: 520;
-      color: #B0CBFF;
+      font-weight: 490;
+      color: #ADC4FF;
     }
 
-    /* ----- mobile / small height adjustments ----- */
+    /* ----- mobile / small height adjustments (flawless) ----- */
     @media (max-width: 800px) {
       .container {
         padding: 1.5rem 1.2rem 1rem 1.2rem;
       }
       .event-name {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
       .header {
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 0.6rem;
-        align-items: flex-start;
       }
       .attendees {
-        gap: 1.5rem;
+        gap: 1.2rem;
       }
-      .attendee .name {
-        font-size: 0.95rem;
+      .avatar {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
       }
-      .attendee .role {
-        font-size: 0.7rem;
+      .attendee {
+        width: 80px;
       }
     }
 
-    /* small height screens (like notebook with browser bars) */
+    /* small height screens (e.g. 13" laptop) */
     @media (max-height: 700px) {
       .video-frame iframe {
         max-height: 58vh;
       }
       .attendees {
-        margin: 0.5rem 0 0 0;
+        margin: 0.8rem 0 0rem 0;
         gap: 2rem;
+      }
+      .avatar {
+        width: 48px;
+        height: 48px;
       }
       .footer {
         padding-top: 0.5rem;
       }
     }
 
-    /* perfect full-screen fit: no scroll, everything intentional */
     @media (max-height: 620px) {
       .attendees {
-        gap: 1.5rem;
+        gap: 1.2rem;
+      }
+      .avatar {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 0.4rem;
       }
       .attendee .name {
-        font-size: 0.9rem;
-      }
-      .event-name {
-        font-size: 1.5rem;
+        font-size: 0.85rem;
       }
     }
 
-    /* optional micro-interaction for live badge (already has pulse) */
-    /* ensure no overflow / unwanted scroll */
-    body {
-      overflow: hidden;
-    }
-
-    /* fine tune horizontal overflow */
+    /* no horizontal overflow */
     .container {
       overflow-x: hidden;
     }
 
-    /* ---- additional subtle detail: tiny gradient line on header ---- */
+    /* subtle line under header */
     .header {
       position: relative;
     }
@@ -274,9 +359,9 @@
       position: absolute;
       bottom: -1px;
       left: 0;
-      width: 80px;
+      width: 70px;
       height: 2px;
-      background: linear-gradient(90deg, #5F9EFF, transparent);
+      background: linear-gradient(90deg, #4770B0, transparent);
       border-radius: 2px;
     }
   </style>
@@ -285,24 +370,32 @@
 
 <div class="container">
 
-  <!-- header: clean, with live emblem & host info -->
+  <!-- header with executive presence -->
   <div class="header">
     <div class="title-section">
       <div class="event-name">
-        AI SUMMIT <span>· live</span>
+        AI SUMMIT <span class="thin">· live</span>
       </div>
       <div class="host">
         RGM College of Engineering and Technology · CSE (AI&ML)
       </div>
     </div>
-    <div class="live-badge" aria-label="live streaming now">LIVE</div>
+    <div class="live-badge">
+      <span class="dot"></span> NOW STREAMING
+    </div>
   </div>
 
-  <!-- video hero – main focal point, keynote session -->
+  <!-- contextual label above video -->
+  <div class="video-context">
+    <div class="video-label">KEYNOTE ADDRESS</div>
+    <div class="video-timestamp">livestream · global keynote</div>
+  </div>
+
+  <!-- video hero – main stage -->
   <div class="video-hero">
     <div class="video-frame">
       <iframe 
-        src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0&showinfo=0&modestbranding=1" 
+        src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0&showinfo=0&modestbranding=1&color=white" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen
         title="AI Summit Keynote">
@@ -310,37 +403,43 @@
     </div>
   </div>
 
-  <!-- participants as elegant attendee list, not cards -->
+  <!-- attendees: now with refined circular avatars (elevated speaker presence) -->
   <div class="attendees">
+    <!-- each attendee gets a small avatar with initial (subtle, not a card) -->
     <div class="attendee">
+      <div class="avatar"><span>S</span></div>
       <div class="name">Sundar Pichai</div>
       <div class="role">Google CEO</div>
     </div>
     <div class="attendee">
+      <div class="avatar"><span>S</span></div>
       <div class="name">Satya Nadella</div>
       <div class="role">Microsoft CEO</div>
     </div>
     <div class="attendee">
+      <div class="avatar"><span>S</span></div>
       <div class="name">Sam Altman</div>
       <div class="role">OpenAI CEO</div>
     </div>
     <div class="attendee">
+      <div class="avatar"><span>J</span></div>
       <div class="name">Jensen Huang</div>
       <div class="role">NVIDIA CEO</div>
     </div>
     <div class="attendee">
+      <div class="avatar"><span>D</span></div>
       <div class="name">Demis Hassabis</div>
       <div class="role">DeepMind CEO</div>
     </div>
   </div>
 
-  <!-- footer: subtle, institutional -->
+  <!-- minimal footer -->
   <div class="footer">
     Organized by <strong>AI CLUB RGMCET</strong> — Department of CSE-AI&ML
   </div>
 
 </div>
 
-<!-- no extra javascript needed — pure, refined presentation -->
+<!-- no heavy js, just refined presence -->
 </body>
 </html>
