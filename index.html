@@ -1,169 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Summit Live</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Summit · Livestream</title>
+  <style>
+    /* ----- reset & base ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
+    body {
+      height: 100vh;
+      background: #0B0E14;  /* deep, calm dark background */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #FFFFFF;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;           /* prevent browser level scroll — we control inside container */
+    }
 
-body{
-    height:100vh;
-    background:#0b0e15;
-    font-family:Segoe UI,Inter,sans-serif;
-    color:white;
-    overflow:hidden;
-}
+    /* main container uses full viewport height, flex column, refined spacing */
+    .container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 2.5rem 1.8rem 2.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      animation: appear 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
 
-/* MAIN LAYOUT */
-.container{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:space-between;
-    padding:16px 20px;
-}
+    @keyframes appear {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-/* HEADER */
-.header{
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-}
+    /* ----- header (minimal, high hierarchy) ----- */
+    .header {
+      flex-shrink: 0;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 0.9rem;
+    }
 
-.title{
-    font-size:34px;
-    font-weight:700;
-}
-.title span{
-    font-weight:300;
-    color:#9bb0d9;
-}
+    .title-section {
+      display: flex;
+      flex-direction: column;
+    }
 
-.host{
-    font-size:14px;
-    opacity:.7;
-}
+    .event-name {
+      font-size: 1.9rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
 
-.live{
-    background:#bf3a2f;
-    padding:6px 14px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:600;
-}
+    .event-name span {
+      font-weight: 340;
+      color: #A0B3D9;            /* muted light blue for subtle contrast */
+    }
 
-/* LABEL */
-.video-label{
-    width:100%;
-    font-size:12px;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    color:#8ca3c9;
-    margin-top:6px;
-}
+    .host {
+      font-size: 0.9rem;
+      font-weight: 380;
+      color: rgba(200, 215, 255, 0.7);
+      margin-top: 0.2rem;
+      letter-spacing: 0.01em;
+    }
 
-/* VIDEO AREA */
-.video-wrapper{
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-}
+    .live-badge {
+      background: #D43F31;        /* refined red, not neon */
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 540;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
 
-/* PERFECT CENTERED VIDEO */
-.video-frame{
-    width:min(88vw,1280px);
-    aspect-ratio:16/9;
-    background:black;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 25px 60px rgba(0,0,0,.6);
-}
+    .live-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 1.8s infinite;
+    }
 
-.video-frame iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.1); }
+      100% { opacity: 1; transform: scale(1); }
+    }
 
-/* PARTICIPANTS */
-.attendees{
-    display:flex;
-    gap:32px;
-    margin-top:10px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
+    /* ----- video hero (main focus, clean, no extra labels) ----- */
+    .video-hero {
+      flex: 1 1 auto;
+      min-height: 0;               /* essential for flex shrink */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0.6rem 0 0.2rem 0;
+    }
 
-.attendee{
-    text-align:center;
-    font-size:13px;
-}
+    .video-frame {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-.role{
-    font-size:11px;
-    color:#9fb8e6;
-    text-transform:uppercase;
-}
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      max-width: min(1320px, 90vw);
+      max-height: 70vh;            /* keeps video contained on any screen */
+      aspect-ratio: 16 / 9;
+      border-radius: 24px;
+      border: none;
+      background: #0A0C12;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.02) inset;
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
 
-/* FOOTER */
-.footer{
-    margin-top:8px;
-    font-size:13px;
-    opacity:.75;
-}
+    .video-frame iframe:hover {
+      transform: scale(1.005);
+      box-shadow: 0 28px 50px -12px #000000DD, 0 0 0 1px rgba(255,255,255,0.05) inset;
+    }
 
-.footer strong{color:#adc4ff;}
+    /* ----- participants (elegant, attendee list, no cards) ----- */
+    .attendees {
+      flex-shrink: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.8rem 3.2rem;
+      margin: 1.5rem 0 0.5rem 0;
+      padding: 0 0.5rem;
+    }
 
-@media(max-width:900px){
-    .title{font-size:24px;}
-    .video-frame{width:95vw;}
-    .attendees{gap:14px;}
-}
-</style>
+    .attendee {
+      text-align: center;
+      transition: opacity 0.2s;
+    }
+
+    .attendee .name {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.2rem;
+      transition: color 0.2s;
+    }
+
+    .attendee .role {
+      font-size: 0.8rem;
+      font-weight: 360;
+      color: rgba(170, 190, 230, 0.8);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border-bottom: 1px dotted rgba(255,255,255,0.1);
+      padding-bottom: 0.2rem;
+    }
+
+    /* subtle hover – only name gains a gentle accent */
+    .attendee:hover .name {
+      color: #7BB2FF;      /* soft, modern blue */
+    }
+
+    /* ----- footer (clean, minimal) ----- */
+    .footer {
+      flex-shrink: 0;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 350;
+      color: rgba(200, 215, 255, 0.6);
+      padding-top: 1rem;
+      margin-top: 0.3rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      letter-spacing: 0.02em;
+    }
+
+    .footer strong {
+      font-weight: 520;
+      color: #B0CBFF;
+    }
+
+    /* ----- mobile / small height adjustments ----- */
+    @media (max-width: 800px) {
+      .container {
+        padding: 1.5rem 1.2rem 1rem 1.2rem;
+      }
+      .event-name {
+        font-size: 1.5rem;
+      }
+      .header {
+        flex-direction: column;
+        gap: 0.6rem;
+        align-items: flex-start;
+      }
+      .attendees {
+        gap: 1.5rem;
+      }
+      .attendee .name {
+        font-size: 0.95rem;
+      }
+      .attendee .role {
+        font-size: 0.7rem;
+      }
+    }
+
+    /* small height screens (like notebook with browser bars) */
+    @media (max-height: 700px) {
+      .video-frame iframe {
+        max-height: 58vh;
+      }
+      .attendees {
+        margin: 0.5rem 0 0 0;
+        gap: 2rem;
+      }
+      .footer {
+        padding-top: 0.5rem;
+      }
+    }
+
+    /* perfect full-screen fit: no scroll, everything intentional */
+    @media (max-height: 620px) {
+      .attendees {
+        gap: 1.5rem;
+      }
+      .attendee .name {
+        font-size: 0.9rem;
+      }
+      .event-name {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* optional micro-interaction for live badge (already has pulse) */
+    /* ensure no overflow / unwanted scroll */
+    body {
+      overflow: hidden;
+    }
+
+    /* fine tune horizontal overflow */
+    .container {
+      overflow-x: hidden;
+    }
+
+    /* ---- additional subtle detail: tiny gradient line on header ---- */
+    .header {
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, #5F9EFF, transparent);
+      border-radius: 2px;
+    }
+  </style>
 </head>
-
 <body>
 
 <div class="container">
 
-<div class="header">
-  <div>
-    <div class="title">AI SUMMIT <span>· live</span></div>
-    <div class="host">RGM College of Engineering and Technology · CSE (AI&ML)</div>
+  <!-- header: clean, with live emblem & host info -->
+  <div class="header">
+    <div class="title-section">
+      <div class="event-name">
+        AI SUMMIT <span>· live</span>
+      </div>
+      <div class="host">
+        RGM College of Engineering and Technology · CSE (AI&ML)
+      </div>
+    </div>
+    <div class="live-badge" aria-label="live streaming now">LIVE</div>
   </div>
-  <div class="live">NOW STREAMING</div>
-</div>
 
-<div class="video-label">KEYNOTE ADDRESS</div>
-
-<div class="video-wrapper">
-  <div class="video-frame">
-    <iframe
-      src="https://www.youtube.com/embed/cmeh2t_TeuA?rel=0&modestbranding=1"
-      allowfullscreen>
-    </iframe>
+  <!-- video hero – main focal point, keynote session -->
+  <div class="video-hero">
+    <div class="video-frame">
+      <iframe 
+        src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0&showinfo=0&modestbranding=1" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        title="AI Summit Keynote">
+      </iframe>
+    </div>
   </div>
+
+  <!-- participants as elegant attendee list, not cards -->
+  <div class="attendees">
+    <div class="attendee">
+      <div class="name">Sundar Pichai</div>
+      <div class="role">Google CEO</div>
+    </div>
+    <div class="attendee">
+      <div class="name">Satya Nadella</div>
+      <div class="role">Microsoft CEO</div>
+    </div>
+    <div class="attendee">
+      <div class="name">Sam Altman</div>
+      <div class="role">OpenAI CEO</div>
+    </div>
+    <div class="attendee">
+      <div class="name">Jensen Huang</div>
+      <div class="role">NVIDIA CEO</div>
+    </div>
+    <div class="attendee">
+      <div class="name">Demis Hassabis</div>
+      <div class="role">DeepMind CEO</div>
+    </div>
+  </div>
+
+  <!-- footer: subtle, institutional -->
+  <div class="footer">
+    Organized by <strong>AI CLUB RGMCET</strong> — Department of CSE-AI&ML
+  </div>
+
 </div>
 
-<div class="attendees">
-  <div class="attendee">Sundar Pichai<div class="role">Google CEO</div></div>
-  <div class="attendee">Satya Nadella<div class="role">Microsoft CEO</div></div>
-  <div class="attendee">Sam Altman<div class="role">OpenAI CEO</div></div>
-  <div class="attendee">Jensen Huang<div class="role">NVIDIA CEO</div></div>
-  <div class="attendee">Demis Hassabis<div class="role">DeepMind CEO</div></div>
-</div>
-
-<div class="footer">
-Organized by <strong>AI CLUB RGMCET</strong> — Department of CSE-AI&ML
-</div>
-
-</div>
-
+<!-- no extra javascript needed — pure, refined presentation -->
 </body>
 </html>
