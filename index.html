@@ -5,127 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gen AI Workshop · live · AI CLUB RGMCET</title>
   <style>
-    /* ----- reset & base ----- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
       height: 100vh;
-      background: #0B0E15;  /* deep, calm base */
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      color: #FFFFFF;
-      line-height: 1.4;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow: hidden;           /* no scroll, one screen */
+      overflow: hidden;
+      background: radial-gradient(circle at top, #0d2f5e 0%, #020817 70%);
+      color: white;
       position: relative;
     }
 
-    /* ----- cinematic ambient background (subtle, moving) ----- */
+    /* subtle ambient glow (reduced opacity for professionalism) */
     body::before {
       content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at 30% 40%, rgba(40, 80, 150, 0.18) 0%, transparent 50%),
-                  radial-gradient(ellipse at 80% 70%, rgba(30, 70, 160, 0.15) 0%, transparent 60%),
-                  linear-gradient(145deg, #0C101A 0%, #0F1420 100%);
-      z-index: 0;
-      pointer-events: none;
-      animation: slowPan 28s infinite alternate ease-in-out;
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: rgba(0, 191, 255, 0.15);
+      filter: blur(150px);
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
     }
 
-    /* soft moving light layer (barely perceptible) */
-    body::after {
-      content: "";
-      position: fixed;
-      top: -20%;
-      left: -20%;
-      width: 140%;
-      height: 140%;
-      background: radial-gradient(circle at 40% 50%, rgba(90, 150, 250, 0.03) 0%, transparent 40%),
-                  radial-gradient(circle at 70% 30%, rgba(50, 120, 240, 0.02) 0%, transparent 50%);
-      z-index: 1;
-      pointer-events: none;
-      mix-blend-mode: overlay;
-      animation: slowDrift 34s infinite alternate;
-    }
-
-    @keyframes slowPan {
-      0% { opacity: 0.6; background-position: 0% 0%; }
-      100% { opacity: 1; background-position: 4% 6%; }
-    }
-
-    @keyframes slowDrift {
-      0% { transform: translate(0%, 0%) scale(1); opacity: 0.2; }
-      100% { transform: translate(2.5%, 1.8%) scale(1.02); opacity: 0.4; }
-    }
-
-    /* main container sits above ambient layers */
+    /* MAIN LAYOUT */
     .container {
-      height: 100vh;
+      height: 100%;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: space-between;
-      padding: 2vh 2vw 1.5vh 2vw;
-      max-width: 1600px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 10;
-      animation: fadeRise 1.1s cubic-bezier(0.2, 0.9, 0.3, 1);
+      align-items: center;
+      padding: 1.5vh 2vw 1vh 2vw;  /* slightly reduced padding to fit stats */
+      animation: fadeRise 1s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
 
     @keyframes fadeRise {
-      0% { opacity: 0; transform: translateY(12px); }
+      0% { opacity: 0; transform: translateY(10px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ----- top section (refined, minimal) ----- */
+    /* TOP INFO */
     .top {
       text-align: center;
       flex-shrink: 0;
-      margin-bottom: 0.5rem;
     }
 
     .college {
-      font-size: clamp(1.2rem, 2vw, 2rem);
-      font-weight: 520;
-      color: #FFFFFF;
+      font-size: clamp(1.2rem, 1.6vw, 2rem);
+      font-weight: 600;
+      color: #f4c26b;
       letter-spacing: -0.02em;
     }
 
-    .college span {
-      font-weight: 300;
-      color: #9BB0D9;
-      font-size: 0.9em;
-    }
-
     .sub {
-      font-size: clamp(0.7rem, 1vw, 1rem);
-      opacity: 0.7;
-      margin-top: 0.2rem;
+      font-size: clamp(0.7rem, 0.9vw, 1rem);
+      opacity: 0.8;
+      margin-top: 4px;
       color: #b0c4de;
     }
 
     .dept {
-      margin-top: 0.3rem;
-      color: #8CA3C9;
-      font-size: clamp(0.8rem, 1.1vw, 1.1rem);
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-top: 6px;
+      color: #8fc9ff;
+      font-size: clamp(0.8rem, 1.1vw, 1.2rem);
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
       display: inline-block;
-      padding-bottom: 0.2rem;
+      padding-bottom: 3px;
     }
 
     .date-live {
-      margin-top: 0.8rem;
+      margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -133,27 +90,27 @@
     }
 
     .date {
-      font-size: clamp(0.7rem, 0.9vw, 0.9rem);
-      padding: 0.3rem 1.2rem;
-      border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 20px;
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 40px;
-      background: rgba(20,30,50,0.4);
+      font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+      background: rgba(20,30,50,0.3);
       backdrop-filter: blur(4px);
       color: #d0e0ff;
       letter-spacing: 0.02em;
     }
 
     .live-badge {
-      background: #BF3A2F;
+      background: #b33028;
       color: white;
       font-size: 0.7rem;
-      font-weight: 550;
+      font-weight: 600;
       text-transform: uppercase;
-      padding: 0.3rem 1.1rem;
+      padding: 6px 18px;
       border-radius: 40px;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       backdrop-filter: blur(2px);
@@ -174,7 +131,7 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
-    /* ----- title (main event) ----- */
+    /* TITLE */
     .title {
       text-align: center;
       flex-shrink: 0;
@@ -182,112 +139,90 @@
     }
 
     .title h1 {
-      font-size: clamp(1.8rem, 4vw, 3.5rem);
-      font-weight: 600;
+      font-size: clamp(1.8rem, 3.2vw, 3.5rem);
+      font-weight: 700;
       letter-spacing: -0.01em;
       line-height: 1.2;
     }
 
     .title h1 span {
-      color: #7BB2FF;
-      font-weight: 500;
-      position: relative;
-      display: inline-block;
+      color: #7bb2ff;
+      font-weight: 600;
     }
 
     .title p {
-      font-size: clamp(1rem, 1.8vw, 1.6rem);
-      color: #f0c48b;
-      font-weight: 340;
+      font-size: clamp(1rem, 1.3vw, 1.6rem);
+      color: #f4c26b;
       font-style: italic;
       margin-top: 0.1rem;
+      font-weight: 350;
     }
 
-    /* ----- VIDEO HERO (absolute focus, cinematic) ----- */
+    /* VIDEO HERO (exact original dimensions) */
     .video-wrap {
-      width: min(90%, 1300px);
+      width: 70%;
+      max-width: 1100px;
       aspect-ratio: 16/9;
       border-radius: 24px;
       overflow: hidden;
-      background: #0A0C12;
-      box-shadow: 0 35px 60px -20px #000000,
-                  0 0 0 1px rgba(255,255,255,0.03) inset,
-                  0 0 25px rgba(70, 130, 200, 0.2);
-      animation: softGlow 6s infinite alternate;
-      transition: box-shadow 0.4s;
-      flex: 0 1 auto;  /* allows video to shrink if needed */
-    }
-
-    @keyframes softGlow {
-      0% { box-shadow: 0 35px 60px -20px #000000,
-                      0 0 0 1px rgba(255,255,255,0.03) inset,
-                      0 0 25px rgba(70, 130, 200, 0.15); }
-      100% { box-shadow: 0 40px 70px -18px #000000,
-                         0 0 0 1px rgba(255,255,255,0.06) inset,
-                         0 0 45px rgba(90, 160, 240, 0.3); }
-    }
-
-    .video-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 25px 40px -15px #000000, 0 0 0 1px rgba(255,255,255,0.05) inset;
+      transition: box-shadow 0.3s;
+      flex-shrink: 0;
     }
 
     .video-wrap:hover {
-      box-shadow: 0 40px 70px -20px #000000,
-                  0 0 0 1px rgba(255,255,255,0.08) inset,
-                  0 0 50px rgba(100, 170, 255, 0.4);
+      box-shadow: 0 30px 50px -15px #000000, 0 0 0 1px rgba(255,255,255,0.1) inset;
     }
 
-    /* ----- LIVE STATS (new: realtime viewer count & start time) ----- */
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* LIVE STATS (professional, no emojis) */
     .live-stats {
       flex-shrink: 0;
       display: flex;
       gap: 2.5rem;
-      margin: 0.5rem 0 0.3rem 0;
-      padding: 0.4rem 1.5rem;
-      background: rgba(10, 20, 30, 0.45);
+      margin: 0.6rem 0 0.3rem 0;
+      padding: 0.5rem 2rem;
+      background: rgba(10, 20, 30, 0.5);
       backdrop-filter: blur(10px);
       border-radius: 60px;
-      border: 1px solid rgba(255,255,255,0.06);
-      font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
       color: rgba(220, 235, 255, 0.9);
       letter-spacing: 0.02em;
-      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
     }
 
     .stat-item {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
-    .stat-item .icon {
-      font-size: 1rem;
-      opacity: 0.7;
+    .stat-label {
+      font-weight: 400;
+      color: #a0b8e0;
     }
 
-    .stat-item .value {
-      font-weight: 520;
-      color: #FFFFFF;
-      margin-right: 0.2rem;
+    .stat-value {
+      font-weight: 550;
+      color: #ffffff;
     }
 
-    .stat-item .label {
-      font-weight: 350;
-      color: #9bb5e0;
-    }
-
-    /* small live pulse next to viewer count */
     .viewer-dot {
       width: 6px;
       height: 6px;
-      background: #6fcf97;
+      background: #4caf92;
       border-radius: 50%;
       display: inline-block;
       margin-left: 6px;
-      box-shadow: 0 0 6px #6fcf97;
+      box-shadow: 0 0 6px #4caf92;
       animation: pulseGreen 2s infinite;
     }
 
@@ -297,88 +232,58 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
-    /* ----- footer (elegant, minimal) ----- */
+    /* FOOTER */
     .footer {
       flex-shrink: 0;
-      font-size: clamp(0.75rem, 1vw, 1rem);
+      font-size: clamp(0.7rem, 1vw, 0.95rem);
       opacity: 0.9;
       text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      padding-top: 0.6rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 0.5rem;
       width: 100%;
+      margin-top: 0.2rem;
     }
 
     .footer span {
-      color: #ADC4FF;
-      font-weight: 500;
+      color: #aac3ff;
+      font-weight: 600;
     }
 
-    /* ----- andrew ng quote (subtle, almost watermark) ----- */
+    /* QUOTE */
     .best {
       position: absolute;
       bottom: 12px;
       right: 24px;
-      font-size: clamp(0.6rem, 0.8vw, 0.9rem);
+      font-size: clamp(0.55rem, 0.75vw, 0.85rem);
       opacity: 0.45;
       color: #b0c8f0;
-      letter-spacing: 0.02em;
       font-style: italic;
-      z-index: 15;
       pointer-events: none;
     }
 
-    /* ----- responsive adjustments (single screen, no scroll) ----- */
-    @media (max-width: 800px) {
-      .container {
-        padding: 1.5rem 1rem;
-      }
-      .date-live {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      .title h1 {
-        font-size: clamp(1.5rem, 6vw, 2.5rem);
-      }
-      .best {
-        bottom: 8px;
-        right: 12px;
-        font-size: 0.6rem;
-      }
-      .live-stats {
-        gap: 1.2rem;
-        padding: 0.3rem 1rem;
-        font-size: 0.75rem;
-      }
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 900px) {
+      .college { font-size: 4vw; }
+      .sub { font-size: 2.8vw; }
+      .dept { font-size: 3vw; }
+      .date-live { flex-direction: column; gap: 0.8rem; }
+      .date { font-size: 2.6vw; }
+      .title h1 { font-size: 7vw; }
+      .title p { font-size: 4vw; }
+      .video-wrap { width: 95%; }
+      .live-stats { gap: 1.5rem; padding: 0.4rem 1.2rem; font-size: 0.8rem; }
+      .footer { font-size: 3vw; }
+      .best { font-size: 2.5vw; bottom: 5px; right: 10px; }
     }
 
+    /* small height adjustments */
     @media (max-height: 700px) {
       .video-wrap {
         max-height: 58vh;
       }
-      .top {
-        margin-bottom: 0.2rem;
-      }
-      .title {
-        margin: 0.1rem 0;
-      }
-      .live-stats {
-        margin: 0.2rem 0;
-      }
-    }
-
-    @media (max-height: 600px) {
-      .video-wrap {
-        max-height: 52vh;
-      }
-      .college {
-        font-size: 1.3rem;
-      }
-      .dept {
-        margin-top: 0.1rem;
-      }
-      .date-live {
-        margin-top: 0.4rem;
-      }
+      .top { margin-bottom: 0.2rem; }
+      .title { margin: 0.1rem 0; }
+      .live-stats { margin: 0.3rem 0; }
     }
   </style>
 </head>
@@ -386,11 +291,9 @@
 
 <div class="container">
 
-  <!-- top section with college, date, live badge -->
+  <!-- top section -->
   <div class="top">
-    <div class="college">
-      RGM College of Engineering and Technology <span>(Autonomous)</span>
-    </div>
+    <div class="college">RGM College of Engineering and Technology (Autonomous)</div>
     <div class="sub">NBA, NAAC A+, Nandyal - 518501, Andhra Pradesh</div>
     <div class="dept">CSE (Artificial Intelligence & Machine Learning)</div>
     <div class="date-live">
@@ -401,13 +304,13 @@
     </div>
   </div>
 
-  <!-- main event title -->
+  <!-- title -->
   <div class="title">
     <h1>WORKSHOP ON <span>Gen AI</span> & <span>Prompt Engineering</span></h1>
     <p>Techniques</p>
   </div>
 
-  <!-- VIDEO HERO - central focus, cinematic presentation -->
+  <!-- video (exact dimensions preserved) -->
   <div class="video-wrap">
     <iframe
       src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0&showinfo=0&modestbranding=1&color=white"
@@ -417,30 +320,48 @@
     </iframe>
   </div>
 
-  <!-- LIVE STATS: realtime viewer count and start time (live feel) -->
-  <div class="live-stats">
+  <!-- live stats: real-time IST + viewer count (no emojis) -->
+  <div class="live-stats" id="liveStats">
     <div class="stat-item">
-      <span class="icon">👁️</span>
-      <span class="value">1.2k</span>
-      <span class="label">watching</span>
-      <span class="viewer-dot"></span>
+      <span class="stat-label">IST</span>
+      <span class="stat-value" id="istTime">--:--:--</span>
     </div>
     <div class="stat-item">
-      <span class="icon">⏱️</span>
-      <span class="value">10:30 AM</span>
-      <span class="label">EST · started</span>
+      <span class="stat-label">VIEWERS</span>
+      <span class="stat-value">1.2k</span>
+      <span class="viewer-dot"></span>
     </div>
   </div>
 
-  <!-- footer with organizer -->
+  <!-- footer -->
   <div class="footer">
     Organized by <span>AI CLUB RGMCET</span> — Department of CSE-AI&ML
   </div>
 
 </div>
 
-<!-- subtle quote (Andrew Ng) as a final touch -->
+<!-- quote -->
 <div class="best">AI is the new electricity. — Andrew Ng</div>
+
+<script>
+  // Real-time Indian Standard Time (IST, UTC+5:30)
+  function updateIST() {
+    const now = new Date();
+    // IST is UTC+5:30
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const istOffset = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes in ms
+    const istTime = new Date(utc + istOffset);
+
+    const hours = istTime.getHours().toString().padStart(2, '0');
+    const minutes = istTime.getMinutes().toString().padStart(2, '0');
+    const seconds = istTime.getSeconds().toString().padStart(2, '0');
+
+    document.getElementById('istTime').textContent = `${hours}:${minutes}:${seconds}`;
+  }
+
+  updateIST();
+  setInterval(updateIST, 1000);
+</script>
 
 </body>
 </html>
