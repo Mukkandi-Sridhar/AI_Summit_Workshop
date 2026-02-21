@@ -141,13 +141,34 @@ iframe{
     font-weight:700;
 }
 
-/* BEST VIEW */
+/* QUOTES AREA */
 .best{
     position:absolute;
     bottom:10px;
-    right:20px;
-    font-size:.75vw;
-    opacity:.6;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    text-align:center;
+    font-size:.85vw;
+    color:#d8eaff;
+    opacity:.85;
+    pointer-events:none;
+}
+
+/* quote fade animation */
+.fade{
+    animation:fadeQuote 1s ease;
+}
+
+@keyframes fadeQuote{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 /* ANIMATIONS */
@@ -176,7 +197,7 @@ iframe{
     .title p{font-size:4vw;}
     .footer{font-size:3vw;}
     .video-wrap{width:95%;}
-    .best{font-size:2.5vw;}
+    .best{font-size:2.4vw;width:95%;}
 }
 </style>
 </head>
@@ -210,7 +231,43 @@ iframe{
 
 </div>
 
-<div class="best">AI is the new electricity. — Andrew Ng</div>
+<div class="best">
+    <span id="quoteText"></span>
+</div>
+
+<script>
+const quotes = [
+"Artificial intelligence is the new electricity. — Andrew Ng",
+"AI will impact every job, every industry, every country. — Satya Nadella",
+"AI is here. It’s not the future — it’s now.",
+"Machine learning is pattern recognition at scale.",
+"AI learns what we teach it — on purpose or not.",
+"AI is not a substitute for human intelligence. It amplifies it. — Fei-Fei Li",
+"Bias in, bias out.",
+"The future is written in data.",
+"AI ethics isn’t a side project — it’s the foundation.",
+"We are not just building smarter machines. We are redefining humanity.",
+"The future is not AI vs humans. It’s AI with humans. — Satya Nadella",
+"Use AI to inspire, not to control.",
+"AI mirrors our minds — flaws and all.",
+"Smart doesn’t mean wise.",
+"Technology builds tools. Humans define purpose."
+];
+
+let index = 0;
+const quoteEl = document.getElementById("quoteText");
+
+function showQuote(){
+    quoteEl.classList.remove("fade");
+    void quoteEl.offsetWidth; // restart animation
+    quoteEl.innerText = quotes[index];
+    quoteEl.classList.add("fade");
+    index = (index + 1) % quotes.length;
+}
+
+showQuote();
+setInterval(showQuote, 5000);
+</script>
 
 </body>
 </html>
