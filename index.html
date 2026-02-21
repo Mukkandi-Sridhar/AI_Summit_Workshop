@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Summit · executive livestream</title>
+  <title>AI Summit · cinematic livestream</title>
   <style>
-    /* ----- reset & premium base ----- */
+    /* ----- reset & base ----- */
     * {
       margin: 0;
       padding: 0;
@@ -14,16 +14,59 @@
 
     body {
       height: 100vh;
-      background: #0B0E15;
+      background: #0B0E15;  /* deep background */
       font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       color: #FFFFFF;
       line-height: 1.4;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow: hidden;           /* no browser scroll */
+      overflow: hidden;           /* single screen, no scroll */
+      position: relative;
     }
 
-    /* main container: full viewport, flex column */
+    /* ----- ambient animated background (subtle & cinematic) ----- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 30% 40%, rgba(40, 70, 130, 0.2) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 70%, rgba(30, 60, 140, 0.15) 0%, transparent 60%),
+                  linear-gradient(145deg, #0C101A 0%, #0F1420 100%);
+      z-index: 0;
+      pointer-events: none;
+      animation: slowPan 24s infinite alternate ease-in-out;
+    }
+
+    /* soft moving light layer (barely perceptible) */
+    body::after {
+      content: "";
+      position: fixed;
+      top: -20%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(circle at 30% 40%, rgba(80, 140, 240, 0.03) 0%, transparent 35%),
+                  radial-gradient(circle at 80% 70%, rgba(50, 100, 230, 0.02) 0%, transparent 40%);
+      z-index: 1;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      animation: slowDrift 32s infinite alternate;
+    }
+
+    @keyframes slowPan {
+      0% { opacity: 0.7; background-position: 0% 0%; }
+      100% { opacity: 1; background-position: 5% 5%; }
+    }
+
+    @keyframes slowDrift {
+      0% { transform: translate(0%, 0%) scale(1); opacity: 0.3; }
+      100% { transform: translate(2%, 2%) scale(1.02); opacity: 0.5; }
+    }
+
+    /* main container: sits above ambient layers */
     .container {
       height: 100vh;
       display: flex;
@@ -31,43 +74,14 @@
       padding: 1.8rem 2.5rem 1.5rem 2.5rem;
       max-width: 1600px;
       margin: 0 auto;
-      animation: appear 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
       position: relative;
-      z-index: 2;
+      z-index: 5;
+      animation: fadeRise 1s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
 
-    @keyframes appear {
-      0% { opacity: 0; transform: translateY(8px); }
+    @keyframes fadeRise {
+      0% { opacity: 0; transform: translateY(10px); }
       100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* background sophistication: subtle gradient + noise effect */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(ellipse at 30% 40%, rgba(30, 60, 100, 0.18) 0%, transparent 60%),
-                  radial-gradient(ellipse at 80% 70%, rgba(20, 40, 80, 0.15) 0%, transparent 70%),
-                  linear-gradient(145deg, #0C101A 0%, #0F1420 100%);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* soft noise overlay */
-    body::after {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wMTUiIC8+PC9zdmc+');
-      background-repeat: repeat;
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .container {
-      position: relative;
-      z-index: 3;
     }
 
     /* ----- header (minimal, refined) ----- */
@@ -79,6 +93,7 @@
       justify-content: space-between;
       padding-bottom: 0.6rem;
       border-bottom: 1px solid rgba(255,255,255,0.04);
+      position: relative;
     }
 
     .title-section {
@@ -141,7 +156,7 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
-    /* video context label — more elegant */
+    /* video context label */
     .video-context {
       flex-shrink: 0;
       margin-bottom: 0.4rem;
@@ -166,10 +181,10 @@
       color: rgba(160,180,220,0.7);
     }
 
-    /* ----- VIDEO HERO — MAXIMIZED, CINEMATIC ----- */
+    /* ----- VIDEO HERO — MAXIMIZED, CINEMATIC, WITH SUBTLE GLOW ANIMATION ----- */
     .video-hero {
       flex: 1 1 auto;
-      min-height: 0;               /* essential for flex shrink */
+      min-height: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -187,26 +202,38 @@
     .video-frame iframe {
       width: 100%;
       height: 100%;
-      max-width: min(1440px, 94vw);   /* wider, more prominent */
-      max-height: 74vh;                /* uses most of the viewport */
+      max-width: min(1440px, 94vw);
+      max-height: 74vh;
       aspect-ratio: 16 / 9;
       border-radius: 20px;
       border: none;
       background: #0A0C12;
+      /* studio lighting glow effect (animated) */
       box-shadow: 0 35px 60px -20px #000000, 
                   0 0 0 1px rgba(255,255,255,0.03) inset,
-                  0 0 0 1px rgba(70,130,200,0.2);
-      transition: transform 0.25s ease, box-shadow 0.4s ease;
+                  0 0 20px rgba(70, 130, 200, 0.2);
+      transition: box-shadow 0.4s ease;
+      animation: softGlow 6s infinite alternate;
+    }
+
+    @keyframes softGlow {
+      0% { box-shadow: 0 35px 60px -20px #000000, 
+                      0 0 0 1px rgba(255,255,255,0.03) inset,
+                      0 0 20px rgba(70, 130, 200, 0.15); }
+      100% { box-shadow: 0 40px 70px -18px #000000, 
+                         0 0 0 1px rgba(255,255,255,0.06) inset,
+                         0 0 40px rgba(90, 160, 240, 0.3); }
     }
 
     .video-frame iframe:hover {
-      transform: scale(1.002);         /* minimal, almost imperceptible */
+      transform: scale(1.002);
       box-shadow: 0 40px 70px -20px #000000, 
-                  0 0 0 1px rgba(255,255,255,0.06) inset,
-                  0 0 0 1px rgba(100,170,255,0.3);
+                  0 0 0 1px rgba(255,255,255,0.08) inset,
+                  0 0 50px rgba(100, 170, 255, 0.4);
+      transition: box-shadow 0.3s, transform 0.25s;
     }
 
-    /* ----- attendees (elegant avatars, smaller to keep focus on video) ----- */
+    /* ----- attendees (elegant, minimal, with micro-motion on hover) ----- */
     .attendees {
       flex-shrink: 0;
       display: flex;
@@ -219,8 +246,8 @@
 
     .attendee {
       text-align: center;
-      width: 80px;                /* slightly smaller */
-      transition: opacity 0.2s;
+      width: 80px;
+      transition: transform 0.2s ease;
     }
 
     .avatar {
@@ -237,8 +264,8 @@
       font-weight: 400;
       color: #fff;
       backdrop-filter: blur(4px);
-      transition: all 0.2s ease;
       box-shadow: 0 6px 14px -6px rgba(0,0,0,0.6);
+      transition: all 0.2s ease;
     }
 
     .attendee .avatar span {
@@ -246,20 +273,22 @@
       opacity: 0.9;
     }
 
+    .attendee:hover {
+      transform: translateY(-2px);
+    }
+
     .attendee:hover .avatar {
       border-color: rgba(130, 180, 255, 0.5);
       background: rgba(35, 50, 80, 0.7);
-      transform: translateY(-2px);
       box-shadow: 0 12px 20px -10px #000000dd;
     }
 
     .attendee .name {
-      font-size: 0.9rem;           /* slightly smaller */
+      font-size: 0.9rem;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.95);
       letter-spacing: -0.01em;
       margin-bottom: 0.15rem;
-      transition: color 0.2s;
     }
 
     .attendee .role {
@@ -272,7 +301,7 @@
       padding-bottom: 0.15rem;
     }
 
-    /* ----- footer (ultra clean) ----- */
+    /* ----- footer (clean, minimal) ----- */
     .footer {
       flex-shrink: 0;
       text-align: center;
@@ -288,6 +317,18 @@
     .footer strong {
       font-weight: 490;
       color: #ADC4FF;
+    }
+
+    /* small accent line under header */
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 70px;
+      height: 2px;
+      background: linear-gradient(90deg, #4770B0, transparent);
+      border-radius: 2px;
     }
 
     /* ----- responsive adjustments (video always dominant) ----- */
@@ -318,10 +359,9 @@
       }
     }
 
-    /* small height screens */
     @media (max-height: 700px) {
       .video-frame iframe {
-        max-height: 68vh;           /* still prominent */
+        max-height: 68vh;
       }
       .attendees {
         margin: 0.6rem 0 0rem 0;
@@ -330,9 +370,6 @@
       .avatar {
         width: 42px;
         height: 42px;
-      }
-      .footer {
-        padding-top: 0.4rem;
       }
     }
 
@@ -348,21 +385,6 @@
       .attendee .name {
         font-size: 0.8rem;
       }
-    }
-
-    .container {
-      overflow-x: hidden;
-    }
-
-    .header::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 70px;
-      height: 2px;
-      background: linear-gradient(90deg, #4770B0, transparent);
-      border-radius: 2px;
     }
   </style>
 </head>
@@ -391,7 +413,7 @@
     <div class="video-timestamp">global executive summit</div>
   </div>
 
-  <!-- VIDEO HERO — full & centered -->
+  <!-- VIDEO HERO — absolute focus, cinematic framing -->
   <div class="video-hero">
     <div class="video-frame">
       <iframe 
@@ -403,7 +425,7 @@
     </div>
   </div>
 
-  <!-- attendees with avatars (smaller, elegant) -->
+  <!-- attendees with avatars (elegant, secondary) -->
   <div class="attendees">
     <div class="attendee">
       <div class="avatar"><span>S</span></div>
