@@ -1,466 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Summit · cinematic livestream</title>
-  <style>
-    /* ----- reset & base ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Summit · Live</title>
 
-    body {
-      height: 100vh;
-      background: #0B0E15;  /* deep background */
-      font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      color: #FFFFFF;
-      line-height: 1.4;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow: hidden;           /* single screen, no scroll */
-      position: relative;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    /* ----- ambient animated background (subtle & cinematic) ----- */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at 30% 40%, rgba(40, 70, 130, 0.2) 0%, transparent 50%),
-                  radial-gradient(ellipse at 80% 70%, rgba(30, 60, 140, 0.15) 0%, transparent 60%),
-                  linear-gradient(145deg, #0C101A 0%, #0F1420 100%);
-      z-index: 0;
-      pointer-events: none;
-      animation: slowPan 24s infinite alternate ease-in-out;
-    }
+body{
+  height:100vh;
+  overflow:hidden;
+  font-family:Inter,Segoe UI,sans-serif;
+  color:white;
+  background:#0B0E15;
+  position:relative;
+}
 
-    /* soft moving light layer (barely perceptible) */
-    body::after {
-      content: "";
-      position: fixed;
-      top: -20%;
-      left: -20%;
-      width: 140%;
-      height: 140%;
-      background: radial-gradient(circle at 30% 40%, rgba(80, 140, 240, 0.03) 0%, transparent 35%),
-                  radial-gradient(circle at 80% 70%, rgba(50, 100, 230, 0.02) 0%, transparent 40%);
-      z-index: 1;
-      pointer-events: none;
-      mix-blend-mode: overlay;
-      animation: slowDrift 32s infinite alternate;
-    }
+/* ambient cinematic background */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 30%,rgba(70,120,220,.18),transparent 55%),
+    radial-gradient(circle at 80% 70%,rgba(40,80,180,.15),transparent 60%),
+    linear-gradient(145deg,#0C101A,#0F1420);
+  animation:drift 20s infinite alternate ease-in-out;
+  z-index:0;
+}
 
-    @keyframes slowPan {
-      0% { opacity: 0.7; background-position: 0% 0%; }
-      100% { opacity: 1; background-position: 5% 5%; }
-    }
+@keyframes drift{
+  from{transform:scale(1);}
+  to{transform:scale(1.03);}
+}
 
-    @keyframes slowDrift {
-      0% { transform: translate(0%, 0%) scale(1); opacity: 0.3; }
-      100% { transform: translate(2%, 2%) scale(1.02); opacity: 0.5; }
-    }
+/* MAIN CONTAINER */
+.container{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  padding:1.5rem 2.2rem;
+  max-width:1600px;
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
 
-    /* main container: sits above ambient layers */
-    .container {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 1.8rem 2.5rem 1.5rem 2.5rem;
-      max-width: 1600px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 5;
-      animation: fadeRise 1s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding-bottom:.6rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
 
-    @keyframes fadeRise {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+.event-name{
+  font-size:2rem;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
 
-    /* ----- header (minimal, refined) ----- */
-    .header {
-      flex-shrink: 0;
-      margin-bottom: 0.8rem;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      position: relative;
-    }
+.event-name span{
+  font-weight:300;
+  color:#9bb0d9;
+}
 
-    .title-section {
-      display: flex;
-      flex-direction: column;
-    }
+.host{
+  font-size:.85rem;
+  color:rgba(180,200,245,.75);
+  margin-top:.2rem;
+}
 
-    .event-name {
-      font-size: 2rem;
-      font-weight: 520;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-      line-height: 1.2;
-    }
+.live-badge{
+  background:#bf3a2f;
+  padding:.35rem 1rem;
+  border-radius:30px;
+  font-size:.75rem;
+  letter-spacing:.08em;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
 
-    .event-name .thin {
-      font-weight: 300;
-      color: #9BB0D9;
-      margin-left: 0.15rem;
-    }
+.live-dot{
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  animation:pulse 1.6s infinite;
+}
 
-    .host {
-      font-size: 0.85rem;
-      font-weight: 360;
-      color: rgba(180, 200, 245, 0.7);
-      margin-top: 0.2rem;
-      letter-spacing: 0.02em;
-    }
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.3);opacity:.6;}
+}
 
-    /* live badge — premium pill */
-    .live-badge {
-      background: #BF3A2F;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 550;
-      text-transform: uppercase;
-      padding: 0.35rem 1rem 0.35rem 1rem;
-      border-radius: 40px;
-      letter-spacing: 0.1em;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      backdrop-filter: blur(2px);
-    }
+/* VIDEO LABEL */
+.video-context{
+  display:flex;
+  justify-content:space-between;
+  margin:.6rem 0 .4rem;
+}
 
-    .live-badge .dot {
-      width: 9px;
-      height: 9px;
-      background: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(255,100,100,0.8);
-      animation: pulse 1.8s infinite;
-    }
+.video-label{
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:#8CA3C9;
+  border-left:2px solid #4770B0;
+  padding-left:.7rem;
+}
 
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.2); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+.video-timestamp{
+  font-size:.75rem;
+  color:rgba(170,190,230,.7);
+}
 
-    /* video context label */
-    .video-context {
-      flex-shrink: 0;
-      margin-bottom: 0.4rem;
-      margin-top: 0.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .video-label {
-      font-size: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #8CA3C9;
-      border-left: 2px solid #4770B0;
-      padding-left: 0.8rem;
-      line-height: 1;
-    }
-    .video-timestamp {
-      font-size: 0.75rem;
-      font-weight: 350;
-      color: rgba(160,180,220,0.7);
-    }
+/* VIDEO HERO */
+.video-hero{
+  flex:1;
+  min-height:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-    /* ----- VIDEO HERO — MAXIMIZED, CINEMATIC, WITH SUBTLE GLOW ANIMATION ----- */
-    .video-hero {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0.2rem 0 0.2rem 0;
-    }
+/* STRICT 16:9 FRAME */
+.video-frame{
+  width:min(94vw,1400px);
+  aspect-ratio:16/9;
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  background:#000;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.55),
+    0 0 0 1px rgba(255,255,255,.05),
+    0 0 35px rgba(80,150,255,.2);
+}
 
-    .video-frame {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+/* iframe fills perfectly */
+.video-frame iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:none;
+}
 
-    .video-frame iframe {
-      width: 100%;
-      height: 100%;
-      max-width: min(1440px, 94vw);
-      max-height: 74vh;
-      aspect-ratio: 16 / 9;
-      border-radius: 20px;
-      border: none;
-      background: #0A0C12;
-      /* studio lighting glow effect (animated) */
-      box-shadow: 0 35px 60px -20px #000000, 
-                  0 0 0 1px rgba(255,255,255,0.03) inset,
-                  0 0 20px rgba(70, 130, 200, 0.2);
-      transition: box-shadow 0.4s ease;
-      animation: softGlow 6s infinite alternate;
-    }
+/* PARTICIPANTS */
+.attendees{
+  display:flex;
+  justify-content:center;
+  gap:2.2rem;
+  margin:.9rem 0 .3rem;
+  flex-wrap:wrap;
+}
 
-    @keyframes softGlow {
-      0% { box-shadow: 0 35px 60px -20px #000000, 
-                      0 0 0 1px rgba(255,255,255,0.03) inset,
-                      0 0 20px rgba(70, 130, 200, 0.15); }
-      100% { box-shadow: 0 40px 70px -18px #000000, 
-                         0 0 0 1px rgba(255,255,255,0.06) inset,
-                         0 0 40px rgba(90, 160, 240, 0.3); }
-    }
+.attendee{
+  text-align:center;
+  width:80px;
+}
 
-    .video-frame iframe:hover {
-      transform: scale(1.002);
-      box-shadow: 0 40px 70px -20px #000000, 
-                  0 0 0 1px rgba(255,255,255,0.08) inset,
-                  0 0 50px rgba(100, 170, 255, 0.4);
-      transition: box-shadow 0.3s, transform 0.25s;
-    }
+.avatar{
+  width:46px;
+  height:46px;
+  margin:auto auto .45rem;
+  border-radius:50%;
+  background:rgba(25,35,55,.7);
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.1rem;
+}
 
-    /* ----- attendees (elegant, minimal, with micro-motion on hover) ----- */
-    .attendees {
-      flex-shrink: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem 2.5rem;
-      margin: 1rem 0 0.2rem 0;
-      padding: 0.2rem 0;
-    }
+.name{
+  font-size:.9rem;
+  font-weight:500;
+}
 
-    .attendee {
-      text-align: center;
-      width: 80px;
-      transition: transform 0.2s ease;
-    }
+.role{
+  font-size:.65rem;
+  color:#9fb8e6;
+  text-transform:uppercase;
+}
 
-    .avatar {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 0.5rem auto;
-      background: rgba(25, 35, 55, 0.6);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #fff;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 6px 14px -6px rgba(0,0,0,0.6);
-      transition: all 0.2s ease;
-    }
+/* FOOTER */
+.footer{
+  text-align:center;
+  font-size:.8rem;
+  color:rgba(180,200,240,.7);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding-top:.5rem;
+}
 
-    .attendee .avatar span {
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
+.footer strong{
+  color:#adc4ff;
+}
 
-    .attendee:hover {
-      transform: translateY(-2px);
-    }
-
-    .attendee:hover .avatar {
-      border-color: rgba(130, 180, 255, 0.5);
-      background: rgba(35, 50, 80, 0.7);
-      box-shadow: 0 12px 20px -10px #000000dd;
-    }
-
-    .attendee .name {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.95);
-      letter-spacing: -0.01em;
-      margin-bottom: 0.15rem;
-    }
-
-    .attendee .role {
-      font-size: 0.65rem;
-      font-weight: 340;
-      color: rgba(160, 185, 230, 0.9);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      border-bottom: 1px dotted rgba(255,255,255,0.1);
-      padding-bottom: 0.15rem;
-    }
-
-    /* ----- footer (clean, minimal) ----- */
-    .footer {
-      flex-shrink: 0;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 330;
-      color: rgba(180, 200, 240, 0.6);
-      padding-top: 0.6rem;
-      margin-top: 0.1rem;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      letter-spacing: 0.03em;
-    }
-
-    .footer strong {
-      font-weight: 490;
-      color: #ADC4FF;
-    }
-
-    /* small accent line under header */
-    .header::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 70px;
-      height: 2px;
-      background: linear-gradient(90deg, #4770B0, transparent);
-      border-radius: 2px;
-    }
-
-    /* ----- responsive adjustments (video always dominant) ----- */
-    @media (max-width: 800px) {
-      .container {
-        padding: 1.5rem 1.2rem 1rem 1.2rem;
-      }
-      .event-name {
-        font-size: 1.6rem;
-      }
-      .header {
-        flex-wrap: wrap;
-        gap: 0.6rem;
-      }
-      .video-frame iframe {
-        max-height: 68vh;
-      }
-      .attendees {
-        gap: 1.5rem;
-      }
-      .avatar {
-        width: 44px;
-        height: 44px;
-        font-size: 1.1rem;
-      }
-      .attendee {
-        width: 70px;
-      }
-    }
-
-    @media (max-height: 700px) {
-      .video-frame iframe {
-        max-height: 68vh;
-      }
-      .attendees {
-        margin: 0.6rem 0 0rem 0;
-        gap: 1.5rem;
-      }
-      .avatar {
-        width: 42px;
-        height: 42px;
-      }
-    }
-
-    @media (max-height: 620px) {
-      .attendees {
-        gap: 1rem;
-      }
-      .avatar {
-        width: 38px;
-        height: 38px;
-        margin-bottom: 0.3rem;
-      }
-      .attendee .name {
-        font-size: 0.8rem;
-      }
-    }
-  </style>
+/* RESPONSIVE */
+@media(max-width:900px){
+  .event-name{font-size:1.5rem;}
+  .video-frame{width:95vw;}
+  .attendees{gap:1.3rem;}
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <!-- header -->
   <div class="header">
-    <div class="title-section">
-      <div class="event-name">
-        AI SUMMIT <span class="thin">· live</span>
-      </div>
-      <div class="host">
-        RGM College of Engineering and Technology · CSE (AI&ML)
-      </div>
+    <div>
+      <div class="event-name">AI SUMMIT <span>· live</span></div>
+      <div class="host">RGM College of Engineering and Technology · CSE (AI&ML)</div>
     </div>
+
     <div class="live-badge">
-      <span class="dot"></span> NOW STREAMING
+      <div class="live-dot"></div>
+      NOW STREAMING
     </div>
   </div>
 
-  <!-- video context -->
   <div class="video-context">
     <div class="video-label">KEYNOTE ADDRESS</div>
     <div class="video-timestamp">global executive summit</div>
   </div>
 
-  <!-- VIDEO HERO — absolute focus, cinematic framing -->
+  <!-- VIDEO -->
   <div class="video-hero">
     <div class="video-frame">
-      <iframe 
-        src="https://www.youtube.com/embed/cmeh2t_TeuA?cc_load_policy=1&rel=0&showinfo=0&modestbranding=1&color=white" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen
-        title="AI Summit Keynote">
+      <iframe
+        src="https://www.youtube.com/embed/cmeh2t_TeuA?rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
       </iframe>
     </div>
   </div>
 
-  <!-- attendees with avatars (elegant, secondary) -->
+  <!-- PARTICIPANTS -->
   <div class="attendees">
-    <div class="attendee">
-      <div class="avatar"><span>S</span></div>
-      <div class="name">Sundar Pichai</div>
-      <div class="role">Google CEO</div>
-    </div>
-    <div class="attendee">
-      <div class="avatar"><span>S</span></div>
-      <div class="name">Satya Nadella</div>
-      <div class="role">Microsoft CEO</div>
-    </div>
-    <div class="attendee">
-      <div class="avatar"><span>S</span></div>
-      <div class="name">Sam Altman</div>
-      <div class="role">OpenAI CEO</div>
-    </div>
-    <div class="attendee">
-      <div class="avatar"><span>J</span></div>
-      <div class="name">Jensen Huang</div>
-      <div class="role">NVIDIA CEO</div>
-    </div>
-    <div class="attendee">
-      <div class="avatar"><span>D</span></div>
-      <div class="name">Demis Hassabis</div>
-      <div class="role">DeepMind CEO</div>
-    </div>
+    <div class="attendee"><div class="avatar">S</div><div class="name">Sundar Pichai</div><div class="role">Google CEO</div></div>
+    <div class="attendee"><div class="avatar">S</div><div class="name">Satya Nadella</div><div class="role">Microsoft CEO</div></div>
+    <div class="attendee"><div class="avatar">S</div><div class="name">Sam Altman</div><div class="role">OpenAI CEO</div></div>
+    <div class="attendee"><div class="avatar">J</div><div class="name">Jensen Huang</div><div class="role">NVIDIA CEO</div></div>
+    <div class="attendee"><div class="avatar">D</div><div class="name">Demis Hassabis</div><div class="role">DeepMind CEO</div></div>
   </div>
 
-  <!-- footer -->
   <div class="footer">
     Organized by <strong>AI CLUB RGMCET</strong> — Department of CSE-AI&ML
   </div>
 
 </div>
 
-<!-- no heavy js, just refined presence -->
 </body>
 </html>
